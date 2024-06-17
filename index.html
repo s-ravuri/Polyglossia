@@ -24,7 +24,7 @@
                 <label><input type="checkbox" id="telugu-vowels" checked> Vowels</label>
                 <label><input type="checkbox" id="telugu-consonants" checked> Consonants</label>
                 <label><input type="checkbox" id="telugu-stressed-consonants" checked> Stressed Consonants</label>
-                <label><input type="checkbox" id="telugu-combinations"> Consonant-Vowel Combinations</label>
+                <label><input type="checkbox" id="telugu-combinations" checked> Consonant-Vowel Combinations</label>
             </div>
             <div id="arabic-options" style="display:none;">
                 <p>All Arabic letters are treated as consonants.</p>
@@ -41,8 +41,9 @@
             </div>
             <br>
             <label for="time-limit">Time (seconds):</label>
-            <input type="number" id="time-limit" value="600" min="1">
-            <br>
+            <label for="time-slider">Time Limit (seconds):</label>
+            <input type="range" id="time-slider" min="0" max="600" step="10" value="300">
+            <span id="time-value">300</span>            <br>
             <button id="start-button">Start Practice</button>
         </div>
         <div id="practice-area" style="display:none;">

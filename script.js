@@ -1,4 +1,4 @@
-// Function to shuffle the characters array
+
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -8,77 +8,79 @@ function shuffleArray(array) {
 
 // Arrays of Telugu characters and their Roman alphabet equivalents
 const teluguVowels = [
-    { char: 'అ', roman: 'a' },
-    { char: 'ఆ', roman: 'aa' },
-    { char: 'ఇ', roman: 'i' },
-    { char: 'ఈ', roman: 'ii' },
-    { char: 'ఉ', roman: 'u' },
-    { char: 'ఊ', roman: 'uu' },
-    { char: 'ఎ', roman: 'e' },
-    { char: 'ఏ', roman: 'ee' },
-    { char: 'ఐ', roman: 'ai' },
-    { char: 'ఒ', roman: 'o' },
-    { char: 'ఓ', roman: 'oo' },
-    { char: 'ఔ', roman: 'au' }
+    { char: 'అ', roman: ['a'] },
+    { char: 'ఆ', roman: ['aa'] },
+    { char: 'ఇ', roman: ['i'] },
+    { char: 'ఈ', roman: ['ii'] },
+    { char: 'ఉ', roman: ['u'] },
+    { char: 'ఊ', roman: ['uu'] },
+    { char: 'ఎ', roman: ['e'] },
+    { char: 'ఏ', roman: ['ee'] },
+    { char: 'ఐ', roman: ['ai'] },
+    { char: 'ఒ', roman: ['o'] },
+    { char: 'ఓ', roman: ['oo'] },
+    { char: 'ఔ', roman: ['au'] }
 ];
+
 
 const teluguConsonants = [
-    { char: 'క', roman: 'ka' },
-    { char: 'గ', roman: 'ga' },
-    { char: 'ఙ', roman: 'nga' },
-    { char: 'చ', roman: 'cha' },
-    { char: 'జ', roman: 'ja' },
-    { char: 'ఞ', roman: 'nya' },
-    { char: 'ట', roman: 'ta' },
-    { char: 'డ', roman: 'da' },
-    { char: 'ణ', roman: 'na' },
-    { char: 'త', roman: 'ta' },
-    { char: 'ద', roman: 'da' },
-    { char: 'న', roman: 'na' },
-    { char: 'ప', roman: 'pa' },
-    { char: 'బ', roman: 'ba' },
-    { char: 'మ', roman: 'ma' },
-    { char: 'య', roman: 'ya' },
-    { char: 'ర', roman: 'ra' },
-    { char: 'ల', roman: 'la' },
-    { char: 'వ', roman: 'va' },
-    { char: 'శ', roman: 'sha' },
-    { char: 'స', roman: 'sa' },
-    { char: 'హ', roman: 'ha' },
-    { char: 'ళ', roman: 'La' },
-    { char: 'క్ష', roman: 'ksha' },
-    { char: 'ఱ', roman: 'rra' }
+    { char: 'క', roman: ['ka'] },
+    { char: 'గ', roman: ['ga'] },
+    { char: 'ఙ', roman: ['gna'] },
+    { char: 'చ', roman: ['cha'] },
+    { char: 'జ', roman: ['ja'] },
+    { char: 'ఞ', roman: ['nya'] },
+    { char: 'ట', roman: ['ta'] },
+    { char: 'డ', roman: ['da'] },
+    { char: 'ణ', roman: ['na'] },
+    { char: 'త', roman: ['tha'] },
+    { char: 'ద', roman: ['dha'] },
+    { char: 'న', roman: ['na'] },
+    { char: 'ప', roman: ['pa'] },
+    { char: 'బ', roman: ['ba'] },
+    { char: 'మ', roman: ['ma'] },
+    { char: 'య', roman: ['ya'] },
+    { char: 'ర', roman: ['ra'] },
+    { char: 'ల', roman: ['la'] },
+    { char: 'వ', roman: ['va'] },
+    { char: 'శ', roman: ['sha'] },
+    { char: 'స', roman: ['sa'] },
+    { char: 'హ', roman: ['ha'] },
+    { char: 'ళ', roman: ['la'] },
+    { char: 'క్ష', roman: ['ksha'] },
+    { char: 'ఱ', roman: ['rra'] }
 ];
+
 
 const teluguStressedConsonants = [
-    { char: 'ఖ', roman: 'Ka' },
-    { char: 'ఘ', roman: 'Ga' },
-    { char: 'ఛ', roman: 'Cha' },
-    { char: 'ఝ', roman: 'Ja' },
-    { char: 'ఠ', roman: 'Ta' },
-    { char: 'ఢ', roman: 'Da' },
-    { char: 'థ', roman: 'Ta' },
-    { char: 'ధ', roman: 'Da' },
-    { char: 'ఫ', roman: 'Pa' },
-    { char: 'భ', roman: 'Ba' },
-    { char: 'ష', roman: 'Sha' }
+    { char: 'ఖ', roman: ['Ka'] },
+    { char: 'ఘ', roman: ['Ga'] },
+    { char: 'ఛ', roman: ['Cha'] },
+    { char: 'ఝ', roman: ['Ja'] },
+    { char: 'ఠ', roman: ['Ta'] },
+    { char: 'ఢ', roman: ['Da'] },
+    { char: 'థ', roman: ['Ta'] },
+    { char: 'ధ', roman: ['Da'] },
+    { char: 'ఫ', roman: ['Pa'] },
+    { char: 'భ', roman: ['Ba'] },
+    { char: 'ష', roman: ['Sha'] }
 ];
 
+
 const teluguDependentVowels = [
-    { char: 'ి', roman: 'i' },
-    { char: 'ీ', roman: 'ii' },
-    { char: 'ు', roman: 'u' },
-    { char: 'ూ', roman: 'uu' },
-   
-   // { char: 'ృ', roman: 'r̥' },
-    //{ char: 'ౄ', roman: 'r̥̄' },
-    { char: 'ె', roman: 'e' },
-    { char: 'ే', roman: 'ee' },
-    { char: 'ై', roman: 'ai' },
-    { char: 'ొ', roman: 'o' },
-    { char: 'ో', roman: 'oo' },
-    { char: 'ౌ', roman: 'au' }
+    { char: 'ా', roman: ['aa'] },
+    { char: 'ి', roman: ['i'] },
+    { char: 'ీ', roman: ['ii'] },
+    { char: 'ు', roman: ['u'] },
+    { char: 'ూ', roman: ['uu'] },
+    { char: 'ె', roman: ['e'] },
+    { char: 'ే', roman: ['ee'] },
+    { char: 'ై', roman: ['ai'] },
+    { char: 'ొ', roman: ['o'] },
+    { char: 'ో', roman: ['oo'] },
+    { char: 'ౌ', roman: ['au'] }
 ];
+
 
 // Arrays of Arabic characters and their Roman alphabet equivalents
 const arabicConsonants = [
@@ -125,16 +127,31 @@ const hiraganaConsonants = [
     { char: 'く', roman: 'ku' },
     { char: 'け', roman: 'ke' },
     { char: 'こ', roman: 'ko' },
+    { char: 'が', roman: 'ga' },
+    { char: 'ぎ', roman: 'gi' },
+    { char: 'ぐ', roman: 'gu' },
+    { char: 'げ', roman: 'ge' },
+    { char: 'ご', roman: 'go' },
     { char: 'さ', roman: 'sa' },
     { char: 'し', roman: 'shi' },
     { char: 'す', roman: 'su' },
     { char: 'せ', roman: 'se' },
     { char: 'そ', roman: 'so' },
+    { char: 'ざ', roman: 'za' },
+    { char: 'じ', roman: 'ji' },
+    { char: 'ず', roman: 'zu' },
+    { char: 'ぜ', roman: 'ze' },
+    { char: 'ぞ', roman: 'zo' },
     { char: 'た', roman: 'ta' },
     { char: 'ち', roman: 'chi' },
     { char: 'つ', roman: 'tsu' },
     { char: 'て', roman: 'te' },
     { char: 'と', roman: 'to' },
+    { char: 'だ', roman: 'da' },
+    { char: 'ぢ', roman: 'ji' },
+    { char: 'づ', roman: 'zu' },
+    { char: 'で', roman: 'de' },
+    { char: 'ど', roman: 'do' },
     { char: 'な', roman: 'na' },
     { char: 'に', roman: 'ni' },
     { char: 'ぬ', roman: 'nu' },
@@ -145,6 +162,16 @@ const hiraganaConsonants = [
     { char: 'ふ', roman: 'fu' },
     { char: 'へ', roman: 'he' },
     { char: 'ほ', roman: 'ho' },
+    { char: 'ば', roman: 'ba' },
+    { char: 'び', roman: 'bi' },
+    { char: 'ぶ', roman: 'bu' },
+    { char: 'べ', roman: 'be' },
+    { char: 'ぼ', roman: 'bo' },
+    { char: 'ぱ', roman: 'pa' },
+    { char: 'ぴ', roman: 'pi' },
+    { char: 'ぷ', roman: 'pu' },
+    { char: 'ぺ', roman: 'pe' },
+    { char: 'ぽ', roman: 'po' },
     { char: 'ま', roman: 'ma' },
     { char: 'み', roman: 'mi' },
     { char: 'む', roman: 'mu' },
@@ -163,29 +190,46 @@ const hiraganaConsonants = [
     { char: 'ん', roman: 'n' }
 ];
 
+
 const hiraganaCombinations = [
-    { char: 'きゃ', roman: 'kya' },
-    { char: 'きゅ', roman: 'kyu' },
-    { char: 'きょ', roman: 'kyo' },
-    { char: 'しゃ', roman: 'sha' },
-    { char: 'しゅ', roman: 'shu' },
-    { char: 'しょ', roman: 'sho' },
-    { char: 'ちゃ', roman: 'cha' },
-    { char: 'ちゅ', roman: 'chu' },
-    { char: 'ちょ', roman: 'cho' },
-    { char: 'にゃ', roman: 'nya' },
-    { char: 'にゅ', roman: 'nyu' },
-    { char: 'にょ', roman: 'nyo' },
-    { char: 'ひゃ', roman: 'hya' },
-    { char: 'ひゅ', roman: 'hyu' },
-    { char: 'ひょ', roman: 'hyo' },
-    { char: 'みゃ', roman: 'mya' },
-    { char: 'みゅ', roman: 'myu' },
-    { char: 'みょ', roman: 'myo' },
-    { char: 'りゃ', roman: 'rya' },
-    { char: 'りゅ', roman: 'ryu' },
-    { char: 'りょ', roman: 'ryo' }
+    { char: 'きゃ', roman: ['kya'] },
+    { char: 'きゅ', roman: ['kyu'] },
+    { char: 'きょ', roman: ['kyo'] },
+    { char: 'ぎゃ', roman: ['gya'] },
+    { char: 'ぎゅ', roman: ['gyu'] },
+    { char: 'ぎょ', roman: ['gyo'] },
+    { char: 'しゃ', roman: ['sha'] },
+    { char: 'しゅ', roman: ['shu'] },
+    { char: 'しょ', roman: ['sho'] },
+    { char: 'じゃ', roman: ['ja', 'jya', 'zha'] },
+    { char: 'じゅ', roman: ['ju', 'jyu', 'zhu'] },
+    { char: 'じょ', roman: ['jo', 'jyo', 'zho'] },
+    { char: 'ちゃ', roman: ['cha'] },
+    { char: 'ちゅ', roman: ['chu'] },
+    { char: 'ちょ', roman: ['cho'] },
+    { char: 'ぢゃ', roman: ['ja', 'jya', 'zha'] },
+    { char: 'ぢゅ', roman: ['ju', 'jyu', 'zhu']},
+    { char: 'ぢょ', roman: ['jo', 'jyo', 'zho'] },
+    { char: 'にゃ', roman: ['nya'] },
+    { char: 'にゅ', roman: ['nyu'] },
+    { char: 'にょ', roman: ['nyo'] },
+    { char: 'ひゃ', roman: ['hya'] },
+    { char: 'ひゅ', roman: ['hyu'] },
+    { char: 'ひょ', roman: ['hyo'] },
+    { char: 'びゃ', roman: ['bya'] },
+    { char: 'びゅ', roman: ['byu'] },
+    { char: 'びょ', roman: ['byo'] },
+    { char: 'ぴゃ', roman: ['pya'] },
+    { char: 'ぴゅ', roman: ['pyu'] },
+    { char: 'ぴょ', roman: ['pyo'] },
+    { char: 'みゃ', roman: ['mya'] },
+    { char: 'みゅ', roman: ['myu'] },
+    { char: 'みょ', roman: ['myo'] },
+    { char: 'りゃ', roman: ['rya'] },
+    { char: 'りゅ', roman: ['ryu'] },
+    { char: 'りょ', roman: ['ryo'] }
 ];
+
 
 const katakanaVowels = [
     { char: 'ア', roman: 'a' },
@@ -196,72 +240,114 @@ const katakanaVowels = [
 ];
 
 const katakanaConsonants = [
-    { char: 'カ', roman: 'ka' },
-    { char: 'キ', roman: 'ki' },
-    { char: 'ク', roman: 'ku' },
-    { char: 'ケ', roman: 'ke' },
-    { char: 'コ', roman: 'ko' },
-    { char: 'サ', roman: 'sa' },
-    { char: 'シ', roman: 'shi' },
-    { char: 'ス', roman: 'su' },
-    { char: 'セ', roman: 'se' },
-    { char: 'ソ', roman: 'so' },
-    { char: 'タ', roman: 'ta' },
-    { char: 'チ', roman: 'chi' },
-    { char: 'ツ', roman: 'tsu' },
-    { char: 'テ', roman: 'te' },
-    { char: 'ト', roman: 'to' },
-    { char: 'ナ', roman: 'na' },
-    { char: 'ニ', roman: 'ni' },
-    { char: 'ヌ', roman: 'nu' },
-    { char: 'ネ', roman: 'ne' },
-    { char: 'ノ', roman: 'no' },
-    { char: 'ハ', roman: 'ha' },
-    { char: 'ヒ', roman: 'hi' },
-    { char: 'フ', roman: 'fu' },
-    { char: 'ヘ', roman: 'he' },
-    { char: 'ホ', roman: 'ho' },
-    { char: 'マ', roman: 'ma' },
-    { char: 'ミ', roman: 'mi' },
-    { char: 'ム', roman: 'mu' },
-    { char: 'メ', roman: 'me' },
-    { char: 'モ', roman: 'mo' },
-    { char: 'ヤ', roman: 'ya' },
-    { char: 'ユ', roman: 'yu' },
-    { char: 'ヨ', roman: 'yo' },
-    { char: 'ラ', roman: 'ra' },
-    { char: 'リ', roman: 'ri' },
-    { char: 'ル', roman: 'ru' },
-    { char: 'レ', roman: 're' },
-    { char: 'ロ', roman: 'ro' },
-    { char: 'ワ', roman: 'wa' },
-    { char: 'ヲ', roman: 'wo' },
-    { char: 'ン', roman: 'n' }
+    { char: 'カ', roman: ['ka'] },
+    { char: 'キ', roman: ['ki'] },
+    { char: 'ク', roman: ['ku'] },
+    { char: 'ケ', roman: ['ke'] },
+    { char: 'コ', roman: ['ko'] },
+    { char: 'ガ', roman: ['ga'] },
+    { char: 'ギ', roman: ['gi'] },
+    { char: 'グ', roman: ['gu'] },
+    { char: 'ゲ', roman: ['ge'] },
+    { char: 'ゴ', roman: ['go'] },
+    { char: 'サ', roman: ['sa'] },
+    { char: 'シ', roman: ['shi'] },
+    { char: 'ス', roman: ['su'] },
+    { char: 'セ', roman: ['se'] },
+    { char: 'ソ', roman: ['so'] },
+    { char: 'ザ', roman: ['za'] },
+    { char: 'ジ', roman: ['ji', 'zi', 'zhi'] },
+    { char: 'ズ', roman: ['zu'] },
+    { char: 'ゼ', roman: ['ze'] },
+    { char: 'ゾ', roman: ['zo'] },
+    { char: 'タ', roman: ['ta'] },
+    { char: 'チ', roman: ['chi'] },
+    { char: 'ツ', roman: ['tsu'] },
+    { char: 'テ', roman: ['te'] },
+    { char: 'ト', roman: ['to'] },
+    { char: 'ダ', roman: ['da'] },
+    { char: 'ヂ', roman: ['ji', 'di', 'zhi'] },
+    { char: 'ヅ', roman: ['zu', 'du', 'dzu'] },
+    { char: 'デ', roman: ['de'] },
+    { char: 'ド', roman: ['do'] },
+    { char: 'ナ', roman: ['na'] },
+    { char: 'ニ', roman: ['ni'] },
+    { char: 'ヌ', roman: ['nu'] },
+    { char: 'ネ', roman: ['ne'] },
+    { char: 'ノ', roman: ['no'] },
+    { char: 'ハ', roman: ['ha'] },
+    { char: 'ヒ', roman: ['hi'] },
+    { char: 'フ', roman: ['fu'] },
+    { char: 'ヘ', roman: ['he'] },
+    { char: 'ホ', roman: ['ho'] },
+    { char: 'バ', roman: ['ba'] },
+    { char: 'ビ', roman: ['bi'] },
+    { char: 'ブ', roman: ['bu'] },
+    { char: 'ベ', roman: ['be'] },
+    { char: 'ボ', roman: ['bo'] },
+    { char: 'パ', roman: ['pa'] },
+    { char: 'ピ', roman: ['pi'] },
+    { char: 'プ', roman: ['pu'] },
+    { char: 'ペ', roman: ['pe'] },
+    { char: 'ポ', roman: ['po'] },
+    { char: 'マ', roman: ['ma'] },
+    { char: 'ミ', roman: ['mi'] },
+    { char: 'ム', roman: ['mu'] },
+    { char: 'メ', roman: ['me'] },
+    { char: 'モ', roman: ['mo'] },
+    { char: 'ヤ', roman: ['ya'] },
+    { char: 'ユ', roman: ['yu'] },
+    { char: 'ヨ', roman: ['yo'] },
+    { char: 'ラ', roman: ['ra'] },
+    { char: 'リ', roman: ['ri'] },
+    { char: 'ル', roman: ['ru'] },
+    { char: 'レ', roman: ['re'] },
+    { char: 'ロ', roman: ['ro'] },
+    { char: 'ワ', roman: ['wa'] },
+    { char: 'ヲ', roman: ['wo'] },
+    { char: 'ン', roman: ['n'] }
 ];
 
+
 const katakanaCombinations = [
-    { char: 'キャ', roman: 'kya' },
-    { char: 'キュ', roman: 'kyu' },
-    { char: 'キョ', roman: 'kyo' },
-    { char: 'シャ', roman: 'sha' },
-    { char: 'シュ', roman: 'shu' },
-    { char: 'ショ', roman: 'sho' },
-    { char: 'チャ', roman: 'cha' },
-    { char: 'チュ', roman: 'chu' },
-    { char: 'チョ', roman: 'cho' },
-    { char: 'ニャ', roman: 'nya' },
-    { char: 'ニュ', roman: 'nyu' },
-    { char: 'ニョ', roman: 'nyo' },
-    { char: 'ヒャ', roman: 'hya' },
-    { char: 'ヒュ', roman: 'hyu' },
-    { char: 'ヒョ', roman: 'hyo' },
-    { char: 'ミャ', roman: 'mya' },
-    { char: 'ミュ', roman: 'myu' },
-    { char: 'ミョ', roman: 'myo' },
-    { char: 'リャ', roman: 'rya' },
-    { char: 'リュ', roman: 'ryu' },
-    { char: 'リョ', roman: 'ryo' }
+    { char: 'キャ', roman: ['kya'] },
+    { char: 'キュ', roman: ['kyu'] },
+    { char: 'キョ', roman: ['kyo'] },
+    { char: 'ギャ', roman: ['gya'] },
+    { char: 'ギュ', roman: ['gyu'] },
+    { char: 'ギョ', roman: ['gyo'] },
+    { char: 'シャ', roman: ['sha'] },
+    { char: 'シュ', roman: ['shu'] },
+    { char: 'ショ', roman: ['sho'] },
+    { char: 'ジャ', roman: ['ja', 'jya', 'zha'] },
+    { char: 'ジュ', roman: ['ju', 'jyu','zhu'] },
+    { char: 'ジョ', roman: ['jo', 'jyo','zho'] },
+    { char: 'チャ', roman: ['cha'] },
+    { char: 'チュ', roman: ['chu'] },
+    { char: 'チョ', roman: ['cho'] },
+    { char: 'ヂャ', roman: ['ja', 'jya', 'zha'] },
+    { char: 'ヂュ', roman: ['ju', 'jyu', 'zhu'] },
+    { char: 'ヂョ', roman: ['jo', 'jyo', 'zho'] },
+    { char: 'ニャ', roman: ['nya'] },
+    { char: 'ニュ', roman: ['nyu'] },
+    { char: 'ニョ', roman: ['nyo'] },
+    { char: 'ヒャ', roman: ['hya'] },
+    { char: 'ヒュ', roman: ['hyu'] },
+    { char: 'ヒョ', roman: ['hyo'] },
+    { char: 'ビャ', roman: ['bya'] },
+    { char: 'ビュ', roman: ['byu'] },
+    { char: 'ビョ', roman: ['byo'] },
+    { char: 'ピャ', roman: ['pya'] },
+    { char: 'ピュ', roman: ['pyu'] },
+    { char: 'ピョ', roman: ['pyo'] },
+    { char: 'ミャ', roman: ['mya'] },
+    { char: 'ミュ', roman: ['myu'] },
+    { char: 'ミョ', roman: ['myo'] },
+    { char: 'リャ', roman: ['rya'] },
+    { char: 'リュ', roman: ['ryu'] },
+    { char: 'リョ', roman: ['ryo'] }
 ];
+
 let characters = [];
 let currentCharacterIndex = 0;
 let score = 0;
@@ -269,6 +355,7 @@ let timeLeft;
 let timer;
 let timerStarted = false;
 let selectedLanguage = 'telugu';
+let previousCharacter = null; // Add this line at the beginning of the script to keep track of the previous character// Function to shuffle the characters array
 
 document.addEventListener('DOMContentLoaded', () => {
     const characterDisplay = document.getElementById('character-display');
@@ -277,6 +364,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedback = document.getElementById('feedback');
     const scoreDisplay = document.getElementById('score');
     const timerDisplay = document.getElementById('timer');
+    const timeSlider = document.getElementById('time-slider');
+    const timeValue = document.getElementById('time-value');
+
+    timeSlider.addEventListener('input', () => {
+        timeValue.textContent = timeSlider.value === "0" ? "Unlimited" : timeSlider.value;
+    });
+    
+
     const startButton = document.getElementById('start-button');
     const vowelsCheckbox = document.getElementById('telugu-vowels');
     const consonantsCheckbox = document.getElementById('telugu-consonants');
@@ -338,17 +433,40 @@ document.addEventListener('DOMContentLoaded', () => {
             startTimer();
             timerStarted = true;
         }
-        const userAnswer = inputAnswer.value.trim().toLowerCase();
-        const correct = userAnswer === characters[currentCharacterIndex].roman;
+        const userAnswer = inputAnswer.value.trim();
+        const correctRomanizations = characters[currentCharacterIndex].roman;
+    
+        console.log('User Answer:', userAnswer);
+        console.log('Correct Romanizations:', correctRomanizations);
+    
+        const correct = correctRomanizations.includes(userAnswer);
+    
+        console.log('Is Correct:', correct);
+    
         updateScore(correct);
-
-        feedback.textContent = correct ? 'Correct!' : `Incorrect! The correct answer is ${characters[currentCharacterIndex].roman}. Try to remember this for next time.`;
-        feedback.className = correct ? 'correct' : 'incorrect';
-
+    
+        if (correct) {
+            feedback.textContent = 'Correct!';
+            feedback.className = 'correct';
+        } else {
+            const correctAnswers = correctRomanizations.join(', ');
+            feedback.innerHTML = `Incorrect! The correct answer is ${correctAnswers} (${characters[currentCharacterIndex].char}). Try to remember this for next time. <br><span style="font-size: 2em;"></span>`;
+            feedback.className = 'incorrect';
+        }
+    
         inputAnswer.value = '';
+        previousCharacter = characters[currentCharacterIndex]; // Update the previous character
         currentCharacterIndex = (currentCharacterIndex + 1) % characters.length;
+    
+        console.log('Current Character Index:', currentCharacterIndex);
+        console.log('Next Character:', characters[currentCharacterIndex].char);
+    
         displayCharacter();
     }
+    
+    
+    
+    
 
     function startTimer() {
         timer = setInterval(() => {
@@ -363,18 +481,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startButton.addEventListener('click', () => {
         characters = [];
+        let selectedConsonants = [];
+    
         if (selectedLanguage === 'telugu') {
             if (vowelsCheckbox.checked) {
                 characters = characters.concat(teluguVowels);
             }
             if (consonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(teluguConsonants);
                 characters = characters.concat(teluguConsonants);
             }
             if (stressedConsonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(teluguStressedConsonants);
                 characters = characters.concat(teluguStressedConsonants);
             }
-            if (combinationsCheckbox.checked) {
-                characters = characters.concat(generateTeluguCombinations(teluguConsonants, teluguDependentVowels));
+            if (combinationsCheckbox.checked && selectedConsonants.length > 0) {
+                characters = characters.concat(generateTeluguCombinations(selectedConsonants, teluguDependentVowels));
             }
         } else if (selectedLanguage === 'arabic') {
             characters = characters.concat(arabicConsonants);
@@ -383,41 +505,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 characters = characters.concat(hiraganaVowels);
             }
             if (hiraganaConsonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(hiraganaConsonants);
                 characters = characters.concat(hiraganaConsonants);
             }
-            if (hiraganaCombinationsCheckbox.checked) {
-                characters = characters.concat(hiraganaCombinations);
+            if (hiraganaCombinationsCheckbox.checked && selectedConsonants.length > 0) {
+                characters = characters.concat(generateTeluguCombinations(selectedConsonants, hiraganaDependentVowels));
             }
         } else if (selectedLanguage === 'katakana') {
             if (katakanaVowelsCheckbox.checked) {
                 characters = characters.concat(katakanaVowels);
             }
             if (katakanaConsonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(katakanaConsonants);
                 characters = characters.concat(katakanaConsonants);
             }
-            if (katakanaCombinationsCheckbox.checked) {
-                characters = characters.concat(katakanaCombinations);
+            if (katakanaCombinationsCheckbox.checked && selectedConsonants.length > 0) {
+                characters = characters.concat(generateTeluguCombinations(selectedConsonants, katakanaDependentVowels));
             }
         }
-
+    
         console.log('Selected characters:', characters); // Log the selected characters
-
+    
         if (characters.length === 0) {
             alert('Please select at least one group to practice.');
             return;
         }
-
-        let time = parseInt(timeLimitInput.value, 10);
-        if (isNaN(time) || time <= 0) {
-            time = 600; // Default to 600 seconds if input is invalid
+    
+        let time = parseInt(timeSlider.value, 10);
+        if (time === 0) {
+            timeLeft = Infinity; // Infinite time for unlimited setting
+            timerDisplay.textContent = 'Time Left: Unlimited';
+        } else {
+            timeLeft = time;
+            timerDisplay.textContent = `Time Left: ${timeLeft}`;
         }
-        timeLeft = time;
-        timerDisplay.textContent = `Time Left: ${timeLeft}`;
         shuffleArray(characters);
         options.style.display = 'none';
         practiceArea.style.display = 'block';
         displayCharacter();
     });
+    
+    
 
     submitAnswer.addEventListener('click', checkAnswer);
     inputAnswer.addEventListener('keyup', (event) => {
@@ -430,11 +558,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function generateTeluguCombinations(consonants, vowels) {
     const combinations = [];
     consonants.forEach(consonant => {
-        const baseRoman = consonant.roman.slice(0, -1); // Remove the "a" at the end
+        const baseRoman = consonant.roman[0].slice(0, -1); // Remove the "a" at the end of the first romanization
         vowels.forEach(vowel => {
+            // Only combine consonants with dependent vowels
             combinations.push({
                 char: consonant.char + vowel.char,
-                roman: baseRoman + vowel.roman
+                roman: [baseRoman + vowel.roman[0]]
             });
         });
     });
