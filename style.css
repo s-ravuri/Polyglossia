@@ -6,13 +6,87 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
 }
 
 .container {
     text-align: center;
     background: white;
     padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #74ebd5;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ACB6E5;
+}
+
+input[type="number"], select, input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: calc(100% - 22px);
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+#feedback {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#feedback.correct {
+    color: green;
+}
+
+#feedback.incorrect {
+    color: red;
+}
+
+#score, #timer {
+    font-size: 16px;
+    margin-top: 10px;
+    background: #f9f9f9;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -20,40 +94,38 @@ body {
 #character-display {
     font-size: 48px;
     margin-bottom: 20px;
+    color: #333;
+    animation: popIn 0.5s ease;
 }
 
-#input-answer {
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-#submit-answer {
-    padding: 10px 20px;
-    font-size: 16px;
-}
-
-#feedback {
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-#score, #timer {
-    font-size: 16px;
-    margin-top: 10px;
+@keyframes popIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* Media Queries */
 @media (max-width: 600px) {
     .container {
         width: 90%;
+        padding: 15px;
     }
 
     #character-display {
         font-size: 36px;
     }
 
-    #input-answer, #submit-answer {
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    input[type="number"], select, input[type="text"] {
         font-size: 14px;
         padding: 8px;
     }

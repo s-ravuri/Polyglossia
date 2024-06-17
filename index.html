@@ -14,6 +14,8 @@
             <select id="language-select">
                 <option value="telugu">Telugu</option>
                 <option value="arabic">Arabic</option>
+                <option value="hiragana">Hiragana</option>
+                <option value="katakana">Katakana</option>
             </select>
             <button id="language-button">Next</button>
         </div>
@@ -22,9 +24,20 @@
                 <label><input type="checkbox" id="telugu-vowels" checked> Vowels</label>
                 <label><input type="checkbox" id="telugu-consonants" checked> Consonants</label>
                 <label><input type="checkbox" id="telugu-stressed-consonants" checked> Stressed Consonants</label>
+                <label><input type="checkbox" id="telugu-combinations"> Consonant-Vowel Combinations</label>
             </div>
             <div id="arabic-options" style="display:none;">
                 <p>All Arabic letters are treated as consonants.</p>
+            </div>
+            <div id="hiragana-options" style="display:none;">
+                <label><input type="checkbox" id="hiragana-vowels" checked> Vowels</label>
+                <label><input type="checkbox" id="hiragana-consonants" checked> Consonants</label>
+                <label><input type="checkbox" id="hiragana-combinations"> Combinations</label>
+            </div>
+            <div id="katakana-options" style="display:none;">
+                <label><input type="checkbox" id="katakana-vowels" checked> Vowels</label>
+                <label><input type="checkbox" id="katakana-consonants" checked> Consonants</label>
+                <label><input type="checkbox" id="katakana-combinations"> Combinations</label>
             </div>
             <br>
             <label for="time-limit">Time (seconds):</label>
