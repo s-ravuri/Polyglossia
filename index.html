@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Practice App</title>
     <link rel="stylesheet" href="style.css">
@@ -16,6 +16,7 @@
                 <option value="arabic">Arabic</option>
                 <option value="hiragana">Hiragana</option>
                 <option value="katakana">Katakana</option>
+                <option value="greek">Greek</option>
             </select>
             <button id="language-button">Next</button>
         </div>
@@ -38,6 +39,10 @@
                 <label><input type="checkbox" id="katakana-vowels" checked> Vowels</label>
                 <label><input type="checkbox" id="katakana-consonants" checked> Consonants</label>
                 <label><input type="checkbox" id="katakana-combinations"> Combinations</label>
+            </div>
+            <div id="greek-options" style="display:none;">
+                <label><input type="checkbox" id="greek-uppercase" checked> Uppercase</label>
+                <label><input type="checkbox" id="greek-lowercase" checked> Lowercase</label>
             </div>
             <br>
             <label for="time-limit">Time (seconds):</label>
