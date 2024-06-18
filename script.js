@@ -59,10 +59,11 @@ const teluguStressedConsonants = [
     { char: 'ఝ', roman: ['Ja'] },
     { char: 'ఠ', roman: ['Ta'] },
     { char: 'ఢ', roman: ['Da'] },
-    { char: 'థ', roman: ['Ta'] },
-    { char: 'ధ', roman: ['Da'] },
+    { char: 'థ', roman: ['Tha'] },
+    { char: 'ధ', roman: ['Dha'] },
     { char: 'ఫ', roman: ['Pa'] },
     { char: 'భ', roman: ['Ba'] },
+    
     { char: 'ష', roman: ['Sha'] }
 ];
 
