@@ -16,9 +16,9 @@ const teluguVowels = [
     { char: 'ఊ', roman: ['uu'] },
     { char: 'ఎ', roman: ['e'] },
     { char: 'ఏ', roman: ['ee'] },
-    { char: 'ఐ', roman: ['ai'] },
     { char: 'ఒ', roman: ['o'] },
     { char: 'ఓ', roman: ['oo'] },
+    { char: 'ఐ', roman: ['ai'] },
     { char: 'ఔ', roman: ['au'] }
 ];
 const teluguConsonants = [
@@ -59,10 +59,9 @@ const teluguStressedConsonants = [
     { char: 'ధ', roman: ['Dha'] },
     { char: 'ఫ', roman: ['Pa'] },
     { char: 'భ', roman: ['Ba'] },
-    
     { char: 'ష', roman: ['Sha'] }
 ];
-const teluguDependentVowels = [
+const teluguDiacriticVowels = [
     { char: 'ా', roman: ['aa'] },
     { char: 'ి', roman: ['i'] },
     { char: 'ీ', roman: ['ii'] },
@@ -76,6 +75,80 @@ const teluguDependentVowels = [
     { char: 'ౌ', roman: ['au'] }
 ];
 
+// Arrays of Devanagari characters and their Roman alphabet equivalents
+const devanagariVowels = [
+    { char: 'अ', roman: ['a'] },
+    { char: 'आ', roman: ['aa', 'ā'] },
+    { char: 'इ', roman: ['i'] },
+    { char: 'ई', roman: ['ii', 'ī'] },
+    { char: 'उ', roman: ['u'] },
+    { char: 'ऊ', roman: ['uu', 'ū'] },
+    { char: 'ए', roman: ['e', 'ee', 'ē'] },
+    { char: 'ओ', roman: ['o', 'oo', 'ō'] },
+    { char: 'ऐ', roman: ['ai'] },
+    { char: 'औ', roman: ['au'] },
+    { char: 'ऋ', roman: ['r'] },
+    { char: 'ॠ', roman: ['rr'] },
+    { char: 'ऌ', roman: ['l'] },
+    { char: 'ॡ', roman: ['ll'] }
+];
+
+const devanagariConsonants = [
+    { char: 'क', roman: ['ka'] },
+    { char: 'ग', roman: ['ga'] },
+    { char: 'ङ', roman: ['gna'] },
+    { char: 'च', roman: ['cha'] },
+    { char: 'ज', roman: ['ja'] },
+    { char: 'ञ', roman: ['nya'] },
+    { char: 'ट', roman: ['ta'] },
+    { char: 'ड', roman: ['da'] },
+    { char: 'ण', roman: ['na'] },
+    { char: 'त', roman: ['tha'] },
+    { char: 'द', roman: ['dha'] },
+    { char: 'न', roman: ['na'] },
+    { char: 'प', roman: ['pa'] },
+    { char: 'ब', roman: ['ba'] },
+    { char: 'म', roman: ['ma'] },
+    { char: 'य', roman: ['ya'] },
+    { char: 'र', roman: ['ra'] },
+    { char: 'ल', roman: ['la'] },
+    { char: 'व', roman: ['va'] },
+    { char: 'श', roman: ['sha'] },
+    { char: 'स', roman: ['sa'] },
+    { char: 'ह', roman: ['ha'] },
+    { char: 'ळ', roman: ['la'] }
+];
+
+const devanagariStressedConsonants = [
+    { char: 'ख', roman: ['Ka'] },
+    { char: 'घ', roman: ['Ga'] },
+    { char: 'छ', roman: ['Cha'] },
+    { char: 'झ', roman: ['Ja'] },
+    { char: 'ठ', roman: ['Ta'] },
+    { char: 'ढ', roman: ['Da'] },
+    { char: 'थ', roman: ['Tha'] },
+    { char: 'ध', roman: ['Dha'] },
+    { char: 'फ', roman: ['Pa'] },
+    { char: 'भ', roman: ['Ba'] },
+    { char: 'ष', roman: ['Sha'] }
+];
+
+const devanagariDiacriticVowels = [
+    { char: '', roman: ['a'] },  // empty char for inherent vowel
+    { char: 'ा', roman: ['aa', 'ā'] },
+    { char: 'ि', roman: ['i'] },
+    { char: 'ी', roman: ['ii', 'ī'] },
+    { char: 'ु', roman: ['u'] },
+    { char: 'ू', roman: ['uu', 'ū'] },
+    { char: 'ृ', roman: ['r'] },
+    { char: 'ॄ', roman: ['rr'] },
+    { char: 'ॢ', roman: ['l'] },
+    { char: 'ॣ', roman: ['ll'] },
+    { char: 'े', roman: ['e'] },
+    { char: 'ै', roman: ['ai'] },
+    { char: 'ो', roman: ['o'] },
+    { char: 'ौ', roman: ['au'] }
+];
 
 // Arrays of Arabic characters and their Roman alphabet equivalents
 const arabicConsonants = [
@@ -107,7 +180,6 @@ const arabicConsonants = [
     { char: 'ه', roman: ['h'] },
     { char: 'ء', roman: ['’'] }
 ];
-
 
 // Arrays of Hiragana characters and their Roman alphabet equivalents
 const hiraganaVowels = [
@@ -396,10 +468,6 @@ const greekLowercase = [
     { char: 'ω', roman: ['oo', 'omega'] }
 ];
 
-
-
-
-
 let characters = [];
 let currentCharacterIndex = 0;
 let correctScore = 0;
@@ -424,36 +492,46 @@ document.addEventListener('DOMContentLoaded', () => {
     timeSlider.addEventListener('input', () => {
         timeValue.textContent = timeSlider.value === "0" ? "Unlimited" : timeSlider.value;
     });
-    
 
     const startButton = document.getElementById('start-button');
-    const vowelsCheckbox = document.getElementById('telugu-vowels');
-    const consonantsCheckbox = document.getElementById('telugu-consonants');
-    const stressedConsonantsCheckbox = document.getElementById('telugu-stressed-consonants');
-    const combinationsCheckbox = document.getElementById('telugu-combinations');
     const practiceArea = document.getElementById('practice-area');
     const options = document.getElementById('options');
     const timeLimitInput = document.getElementById('time-limit');
     const languageSelect = document.getElementById('language-select');
     const languageButton = document.getElementById('language-button');
+
     const teluguOptions = document.getElementById('telugu-options');
+    const devanagariOptions = document.getElementById('devanagari-options')
     const arabicOptions = document.getElementById('arabic-options');
     const hiraganaOptions = document.getElementById('hiragana-options');
     const katakanaOptions = document.getElementById('katakana-options');
     const greekOptions = document.getElementById('greek-options');
 
+    const teluguVowelsCheckbox = document.getElementById('telugu-vowels');
+    const teluguConsonantsCheckbox = document.getElementById('telugu-consonants');
+    const teluguStressedConsonantsCheckbox = document.getElementById('telugu-stressed-consonants');
+    const teluguCombinationsCheckbox = document.getElementById('telugu-combinations');
+
+    const devanagariVowelsCheckbox = document.getElementById('devanagari-vowels');
+    const devanagariConsonantsCheckbox = document.getElementById('devanagari-consonants');
+    const devanagariStressedConsonantsCheckbox = document.getElementById('devanagari-stressed-consonants');
+    const devanagariCombinationsCheckbox = document.getElementById('devanagari-combinations');
+
     const hiraganaVowelsCheckbox = document.getElementById('hiragana-vowels');
     const hiraganaConsonantsCheckbox = document.getElementById('hiragana-consonants');
     const hiraganaCombinationsCheckbox = document.getElementById('hiragana-combinations');
+
     const katakanaVowelsCheckbox = document.getElementById('katakana-vowels');
     const katakanaConsonantsCheckbox = document.getElementById('katakana-consonants');
     const katakanaCombinationsCheckbox = document.getElementById('katakana-combinations');
-    const greekUppercaseCheckbox = document.getElementById('greek-uppercase')
-    const greekLowercaseCheckbox = document.getElementById('greek-lowercase')
+
+    const greekUppercaseCheckbox = document.getElementById('greek-uppercase');
+    const greekLowercaseCheckbox = document.getElementById('greek-lowercase');
 
     languageButton.addEventListener('click', () => {
         selectedLanguage = languageSelect.value;
         teluguOptions.style.display = 'none';
+        devanagariOptions.style.display = 'none';
         arabicOptions.style.display = 'none';
         hiraganaOptions.style.display = 'none';
         katakanaOptions.style.display = 'none';
@@ -461,6 +539,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (selectedLanguage === 'telugu') {
             teluguOptions.style.display = 'block';
+        } else if (selectedLanguage === 'devanagari') {
+            devanagariOptions.style.display = 'block';
         } else if (selectedLanguage === 'arabic') {
             arabicOptions.style.display = 'block';
         } else if (selectedLanguage === 'hiragana') {
@@ -559,22 +639,40 @@ document.addEventListener('DOMContentLoaded', () => {
         let selectedConsonants = [];
     
         if (selectedLanguage === 'telugu') {
-            if (vowelsCheckbox.checked) {
+            if (teluguVowelsCheckbox.checked) {
                 characters = characters.concat(teluguVowels);
             }
-            if (consonantsCheckbox.checked) {
+            if (teluguConsonantsCheckbox.checked) {
                 selectedConsonants = selectedConsonants.concat(teluguConsonants);
                 characters = characters.concat(teluguConsonants);
             }
-            if (stressedConsonantsCheckbox.checked) {
+            if (teluguStressedConsonantsCheckbox.checked) {
                 selectedConsonants = selectedConsonants.concat(teluguStressedConsonants);
                 characters = characters.concat(teluguStressedConsonants);
             }
-            if (combinationsCheckbox.checked && selectedConsonants.length > 0) {
-                characters = characters.concat(generateTeluguCombinations(selectedConsonants, teluguDependentVowels));
+            if (teluguCombinationsCheckbox.checked && selectedConsonants.length > 0) {
+                characters = characters.concat(generateIndicCombinations(selectedConsonants, teluguDiacriticVowels));
             }
+
+        } else if (selectedLanguage === 'devanagari') {
+            if (devanagariVowelsCheckbox.checked) {
+                characters = characters.concat(devanagariVowels);
+            }
+            if (devanagariConsonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(devanagariConsonants);
+                characters = characters.concat(devanagariConsonants);
+            }
+            if (devanagariStressedConsonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(devanagariStressedConsonants);
+                characters = characters.concat(devanagariStressedConsonants);
+            }
+            if (devanagariCombinationsCheckbox.checked && selectedConsonants.length > 0) {
+                characters = characters.concat(generateIndicCombinations(selectedConsonants, devanagariDiacriticVowels));
+            }
+            
         } else if (selectedLanguage === 'arabic') {
             characters = characters.concat(arabicConsonants);
+
         } else if (selectedLanguage === 'hiragana') {
             if (hiraganaVowelsCheckbox.checked) {
                 characters = characters.concat(hiraganaVowels);
@@ -638,7 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function generateTeluguCombinations(consonants, vowels) {
+function generateIndicCombinations(consonants, vowels) {
     const combinations = [];
     consonants.forEach(consonant => {
         const baseRoman = consonant.roman[0].slice(0, -1); // Remove the "a" at the end of the first romanization
