@@ -402,7 +402,8 @@ const greekLowercase = [
 
 let characters = [];
 let currentCharacterIndex = 0;
-let score = 0;
+let correctScore = 0;
+let incorrectScore = 0;
 let timeLeft;
 let timer;
 let timerStarted = false;
@@ -414,7 +415,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputAnswer = document.getElementById('input-answer');
     const submitAnswer = document.getElementById('submit-answer');
     const feedback = document.getElementById('feedback');
-    const scoreDisplay = document.getElementById('score');
+    const correctScoreDisplay = document.getElementById('correct-score');
+    const incorrectScoreDisplay = document.getElementById('incorrect-score');
     const timerDisplay = document.getElementById('timer');
     const timeSlider = document.getElementById('time-slider');
     const timeValue = document.getElementById('time-value');
@@ -480,11 +482,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateScore(correct) {
         if (correct) {
-            score++;
+            correctScore++;
         } else {
-            score--;
+            incorrectScore++;
         }
-        scoreDisplay.textContent = `Score: ${score}`;
+        correctScoreDisplay.textContent = `Correct: ${correctScore}`;
+        incorrectScoreDisplay.textContent = `Incorrect: ${incorrectScore}`;
     }
 
     function checkAnswer() {
@@ -546,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
             timerDisplay.textContent = `Time Left: ${timeLeft}`;
             if (timeLeft === 0) {
                 clearInterval(timer);
-                alert(`Time's up! Your score is ${score}.`);
+                alert(`Time's up! Your score is ${correctScore}.`);
             }
         }, 1000);
     }
