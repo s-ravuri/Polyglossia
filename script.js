@@ -455,7 +455,7 @@ const bopomofoConsonants = [
 const bopomofoCombinations = [
     { char: 'ㄧ', roman: ['i'] },
     { char: 'ㄨ', roman: ['u'] },
-    { char: 'ㄩ', roman: ['ü'] },
+    { char: 'ㄩ', roman: ['ü', 'yu'] },
     { char: 'ㄧㄚ', roman: ['ia'] },
     { char: 'ㄧㄛ', roman: ['io'] },
     { char: 'ㄧㄝ', roman: ['ie'] },
@@ -473,10 +473,10 @@ const bopomofoCombinations = [
     { char: 'ㄨㄣ', roman: ['uen'] },
     { char: 'ㄨㄤ', roman: ['uang'] },
     { char: 'ㄨㄥ', roman: ['ung'] },
-    { char: 'ㄩㄝ', roman: ['üê'] },
-    { char: 'ㄩㄢ', roman: ['üan'] },
-    { char: 'ㄩㄣ', roman: ['ün'] },
-    { char: 'ㄩㄥ', roman: ['üng'] }
+    { char: 'ㄩㄝ', roman: ['üê', 'yueh', 'üeh', 'yuê'] },
+    { char: 'ㄩㄢ', roman: ['üan', 'yuan'] },
+    { char: 'ㄩㄣ', roman: ['ün', 'yun'] },
+    { char: 'ㄩㄥ', roman: ['üng', 'yung'] }
 ];
 
 
