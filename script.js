@@ -413,6 +413,73 @@ const katakanaCombinations = [
     { char: 'リョ', roman: ['ryo'] }
 ];
 
+// Arrays of Bopomofo characters and their Roman alphabet equivalents
+const bopomofoVowels = [
+    { char: 'ㄚ', roman: ['a'] },
+    { char: 'ㄛ', roman: ['o'] },
+    { char: 'ㄜ', roman: ['e'] },
+    { char: 'ㄝ', roman: ['ê', 'eh'] },
+    { char: 'ㄞ', roman: ['ai'] },
+    { char: 'ㄟ', roman: ['ei'] },
+    { char: 'ㄠ', roman: ['ao'] },
+    { char: 'ㄡ', roman: ['ou'] },
+    { char: 'ㄢ', roman: ['an'] },
+    { char: 'ㄣ', roman: ['en'] },
+    { char: 'ㄤ', roman: ['ang'] },
+    { char: 'ㄥ', roman: ['eng'] },
+    { char: 'ㄦ', roman: ['er'] }
+];
+const bopomofoConsonants = [
+    { char: 'ㄅ', roman: ['b'] },
+    { char: 'ㄆ', roman: ['p'] },
+    { char: 'ㄇ', roman: ['m'] },
+    { char: 'ㄈ', roman: ['f'] },
+    { char: 'ㄉ', roman: ['d'] },
+    { char: 'ㄊ', roman: ['t'] },
+    { char: 'ㄋ', roman: ['n'] },
+    { char: 'ㄌ', roman: ['l'] },
+    { char: 'ㄍ', roman: ['g'] },
+    { char: 'ㄎ', roman: ['k'] },
+    { char: 'ㄏ', roman: ['h'] },
+    { char: 'ㄐ', roman: ['j'] },
+    { char: 'ㄑ', roman: ['q'] },
+    { char: 'ㄒ', roman: ['x'] },
+    { char: 'ㄓ', roman: ['zh'] },
+    { char: 'ㄔ', roman: ['ch'] },
+    { char: 'ㄕ', roman: ['sh'] },
+    { char: 'ㄖ', roman: ['r'] },
+    { char: 'ㄗ', roman: ['z'] },
+    { char: 'ㄘ', roman: ['c'] },
+    { char: 'ㄙ', roman: ['s'] }
+];
+const bopomofoCombinations = [
+    { char: 'ㄧ', roman: ['i'] },
+    { char: 'ㄨ', roman: ['u'] },
+    { char: 'ㄩ', roman: ['ü'] },
+    { char: 'ㄧㄚ', roman: ['ia'] },
+    { char: 'ㄧㄛ', roman: ['io'] },
+    { char: 'ㄧㄝ', roman: ['ie'] },
+    { char: 'ㄧㄠ', roman: ['iao'] },
+    { char: 'ㄧㄡ', roman: ['iou'] },
+    { char: 'ㄧㄢ', roman: ['ian'] },
+    { char: 'ㄧㄣ', roman: ['in'] },
+    { char: 'ㄧㄤ', roman: ['iang'] },
+    { char: 'ㄧㄥ', roman: ['ing'] },
+    { char: 'ㄨㄚ', roman: ['ua'] },
+    { char: 'ㄨㄛ', roman: ['uo'] },
+    { char: 'ㄨㄞ', roman: ['uai'] },
+    { char: 'ㄨㄟ', roman: ['uei'] },
+    { char: 'ㄨㄢ', roman: ['uan'] },
+    { char: 'ㄨㄣ', roman: ['uen'] },
+    { char: 'ㄨㄤ', roman: ['uang'] },
+    { char: 'ㄨㄥ', roman: ['ung'] },
+    { char: 'ㄩㄝ', roman: ['üê'] },
+    { char: 'ㄩㄢ', roman: ['üan'] },
+    { char: 'ㄩㄣ', roman: ['ün'] },
+    { char: 'ㄩㄥ', roman: ['üng'] }
+];
+
+
 // Arrays of Greek characters and their Roman alphabet equivalents
 const greekUppercase = [
     { char: 'Α', roman: ['A', 'Alpha'] },
@@ -505,6 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const arabicOptions = document.getElementById('arabic-options');
     const hiraganaOptions = document.getElementById('hiragana-options');
     const katakanaOptions = document.getElementById('katakana-options');
+    const bopomofoOptions = document.getElementById('bopomofo-options')
     const greekOptions = document.getElementById('greek-options');
 
     const teluguVowelsCheckbox = document.getElementById('telugu-vowels');
@@ -525,6 +593,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const katakanaConsonantsCheckbox = document.getElementById('katakana-consonants');
     const katakanaCombinationsCheckbox = document.getElementById('katakana-combinations');
 
+    const bopomofoVowelsCheckbox = document.getElementById('bopomofo-vowels');
+    const bopomofoConsonantsCheckbox = document.getElementById('bopomofo-consonants');
+    const bopomofoCombinationsCheckbox = document.getElementById('bopomofo-combinations');
+
     const greekUppercaseCheckbox = document.getElementById('greek-uppercase');
     const greekLowercaseCheckbox = document.getElementById('greek-lowercase');
 
@@ -535,6 +607,7 @@ document.addEventListener('DOMContentLoaded', () => {
         arabicOptions.style.display = 'none';
         hiraganaOptions.style.display = 'none';
         katakanaOptions.style.display = 'none';
+        bopomofoOptions.style.display = 'none';
         greekOptions.style.display = 'none';
 
         if (selectedLanguage === 'telugu') {
@@ -547,6 +620,8 @@ document.addEventListener('DOMContentLoaded', () => {
             hiraganaOptions.style.display = 'block';
         } else if (selectedLanguage === 'katakana') {
             katakanaOptions.style.display = 'block';
+        } else if (selectedLanguage === 'bopomofo') {
+            bopomofoOptions.style.display = 'block';
         } else if (selectedLanguage === 'greek') {
             greekOptions.style.display = 'block';
         }
@@ -586,7 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
         // Make userAnswer lowercase for case-insensitive languages
-        const caseInsensitiveLanguages = ['greek', 'hiragana', 'katakana']; // Add other languages as needed
+        const caseInsensitiveLanguages = ['greek', 'hiragana', 'katakana', 'bopomofo']; // Add other languages as needed
         if (caseInsensitiveLanguages.includes(selectedLanguage.toLowerCase())) {
             userAnswer = userAnswer.toLowerCase();
             correctRomanizations = correctRomanizations.map(roman => roman.toLowerCase());        }
@@ -694,6 +769,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (katakanaCombinationsCheckbox.checked && selectedConsonants.length > 0) {
                 characters = characters.concat(katakanaCombinations);
+            }
+        } else if (selectedLanguage === 'bopomofo') {
+            if (bopomofoVowelsCheckbox.checked) {
+                characters = characters.concat(bopomofoVowels);
+            }
+            if (bopomofoConsonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(bopomofoConsonants);
+                characters = characters.concat(bopomofoConsonants);
+            }
+            if (bopomofoCombinationsCheckbox.checked && selectedConsonants.length > 0) {
+                characters = characters.concat(bopomofoCombinations);
             }
         } else if (selectedLanguage == 'greek') {
             if (greekLowercaseCheckbox.checked) {
