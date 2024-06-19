@@ -49,18 +49,20 @@ const teluguConsonants = [
     { char: 'ఱ', roman: ['rra'] }
 ];
 const teluguStressedConsonants = [
-    { char: 'ఖ', roman: ['Ka'] },
-    { char: 'ఘ', roman: ['Ga'] },
-    { char: 'ఛ', roman: ['Cha'] },
-    { char: 'ఝ', roman: ['Ja'] },
-    { char: 'ఠ', roman: ['Ta'] },
-    { char: 'ఢ', roman: ['Da'] },
-    { char: 'థ', roman: ['Tha'] },
-    { char: 'ధ', roman: ['Dha'] },
-    { char: 'ఫ', roman: ['Pa'] },
-    { char: 'భ', roman: ['Ba'] },
-    { char: 'ష', roman: ['Sha'] }
+    { char: 'ఖ', roman: ['Ka', 'Kha', 'kha'] },
+    { char: 'ఘ', roman: ['Ga', 'Gha', 'gha'] },
+    { char: 'ఛ', roman: ['Cha', 'Chha', 'chha'] },
+    { char: 'ఝ', roman: ['Ja', 'Jha', 'jha'] },
+    { char: 'ఠ', roman: ['Ta', 'Tha', 'tha'] },
+    { char: 'ఢ', roman: ['Da', 'Dha', 'dha'] },
+    { char: 'థ', roman: ['Tha', 'Thha', 'thha'] },
+    { char: 'ధ', roman: ['Dha', 'Dhha', 'dhha'] },
+    { char: 'ఫ', roman: ['Pa', 'Fa', 'Pha', 'Fa', 'pha'] },
+    { char: 'భ', roman: ['Ba', 'Bha', 'bha'] },
+    { char: 'ష', roman: ['Sha', 'Shha', 'shha'] }
 ];
+
+
 const teluguDiacriticVowels = [
     { char: 'ా', roman: ['aa'] },
     { char: 'ి', roman: ['i'] },
@@ -495,13 +497,13 @@ const greekUppercase = [
     { char: 'Λ', roman: ['L', 'Lambda'] },
     { char: 'Μ', roman: ['M', 'Mu'] },
     { char: 'Ν', roman: ['N', 'Nu'] },
-    { char: 'Ξ', roman: ['Ks', 'X', 'Xi'] },
+    { char: 'Ξ', roman: ['Ks', 'X', 'Xi', 'ksi'] },
     { char: 'Ο', roman: ['O', 'Omicron'] },
     { char: 'Π', roman: ['P', 'Pi'] },
     { char: 'Ρ', roman: ['R', 'Rho'] },
     { char: 'Σ', roman: ['S', 'Sigma'] },
     { char: 'Τ', roman: ['T', 'Tau'] },
-    { char: 'Υ', roman: ['Y', 'IU', 'Upsilon'] },
+    { char: 'Υ', roman: ['Y', 'IU', 'Upsilon', 'U'] },
     { char: 'Φ', roman: ['Ph', 'Phi'] },
     { char: 'Χ', roman: ['Ch', 'Kh', 'Chi'] },
     { char: 'Ψ', roman: ['Ps', 'Psi'] },
@@ -522,18 +524,93 @@ const greekLowercase = [
     { char: 'λ', roman: ['l', 'lambda'] },
     { char: 'μ', roman: ['m', 'mu'] },
     { char: 'ν', roman: ['n', 'nu'] },
-    { char: 'ξ', roman: ['ks', 'x', 'xi'] },
+    { char: 'ξ', roman: ['ks', 'x', 'xi', 'ksi'] },
     { char: 'ο', roman: ['o', 'omicron'] },
     { char: 'π', roman: ['p', 'pi'] },
     { char: 'ρ', roman: ['r', 'rho'] },
     { char: 'σ', roman: ['s', 'sigma'] },
     { char: 'τ', roman: ['t', 'tau'] },
-    { char: 'υ', roman: ['y', 'iu', 'upsilon'] },
+    { char: 'υ', roman: ['y', 'iu', 'upsilon', 'u'] },
     { char: 'φ', roman: ['ph', 'phi'] },
     { char: 'χ', roman: ['ch', 'kh', 'chi'] },
     { char: 'ψ', roman: ['ps', 'psi'] },
     { char: 'ω', roman: ['oo', 'omega'] }
 ];
+
+// Arrays of Cyrillic characters and their Roman alphabet equivalents
+const cyrillicUppercase = [
+    { char: 'А', roman: ['A', 'A'] },
+    { char: 'Б', roman: ['B', 'Be'] },
+    { char: 'В', roman: ['V', 'Ve'] },
+    { char: 'Г', roman: ['G', 'Ge'] },
+    { char: 'Д', roman: ['D', 'De'] },
+    { char: 'Е', roman: ['E', 'Ye'] },
+    { char: 'Ё', roman: ['Yo', 'Yo'] },
+    { char: 'Ж', roman: ['Zh', 'Zhe'] },
+    { char: 'З', roman: ['Z', 'Ze'] },
+    { char: 'И', roman: ['I', 'I'] },
+    { char: 'Й', roman: ['Y', 'Short I'] },
+    { char: 'К', roman: ['K', 'Ka'] },
+    { char: 'Л', roman: ['L', 'El'] },
+    { char: 'М', roman: ['M', 'Em'] },
+    { char: 'Н', roman: ['N', 'En'] },
+    { char: 'О', roman: ['O', 'O'] },
+    { char: 'П', roman: ['P', 'Pe'] },
+    { char: 'Р', roman: ['R', 'Er'] },
+    { char: 'С', roman: ['S', 'Es'] },
+    { char: 'Т', roman: ['T', 'Te'] },
+    { char: 'У', roman: ['U', 'U'] },
+    { char: 'Ф', roman: ['F', 'Ef'] },
+    { char: 'Х', roman: ['Kh', 'Kha'] },
+    { char: 'Ц', roman: ['Ts', 'Tse'] },
+    { char: 'Ч', roman: ['Ch', 'Che'] },
+    { char: 'Ш', roman: ['Sh', 'Sha'] },
+    { char: 'Щ', roman: ['Shch', 'Shcha'] },
+    { char: 'Ъ', roman: ['Hard Sign', 'Hard Sign'] },
+    { char: 'Ы', roman: ['Y', 'Yeru'] },
+    { char: 'Ь', roman: ['Soft Sign', 'Soft Sign'] },
+    { char: 'Э', roman: ['E', 'E'] },
+    { char: 'Ю', roman: ['Yu', 'Yu'] },
+    { char: 'Я', roman: ['Ya', 'Ya'] }
+];
+
+const cyrillicLowercase = [
+    { char: 'а', roman: ['a', 'a'] },
+    { char: 'б', roman: ['b', 'be'] },
+    { char: 'в', roman: ['v', 've'] },
+    { char: 'г', roman: ['g', 'ge'] },
+    { char: 'д', roman: ['d', 'de'] },
+    { char: 'е', roman: ['e', 'ye'] },
+    { char: 'ё', roman: ['yo', 'yo'] },
+    { char: 'ж', roman: ['zh', 'zhe'] },
+    { char: 'з', roman: ['z', 'ze'] },
+    { char: 'и', roman: ['i', 'i'] },
+    { char: 'й', roman: ['y', 'short i'] },
+    { char: 'к', roman: ['k', 'ka'] },
+    { char: 'л', roman: ['l', 'el'] },
+    { char: 'м', roman: ['m', 'em'] },
+    { char: 'н', roman: ['n', 'en'] },
+    { char: 'о', roman: ['o', 'o'] },
+    { char: 'п', roman: ['p', 'pe'] },
+    { char: 'р', roman: ['r', 'er'] },
+    { char: 'с', roman: ['s', 'es'] },
+    { char: 'т', roman: ['t', 'te'] },
+    { char: 'у', roman: ['u', 'u'] },
+    { char: 'ф', roman: ['f', 'ef'] },
+    { char: 'х', roman: ['kh', 'kha'] },
+    { char: 'ц', roman: ['ts', 'tse'] },
+    { char: 'ч', roman: ['ch', 'che'] },
+    { char: 'ш', roman: ['sh', 'sha'] },
+    { char: 'щ', roman: ['shch', 'shcha'] },
+    { char: 'ъ', roman: ['hard sign', 'hard sign'] },
+    { char: 'ы', roman: ['y', 'yeru'] },
+    { char: 'ь', roman: ['soft sign', 'soft sign'] },
+    { char: 'э', roman: ['e', 'e'] },
+    { char: 'ю', roman: ['yu', 'yu'] },
+    { char: 'я', roman: ['ya', 'ya'] }
+];
+
+
 
 let characters = [];
 let currentCharacterIndex = 0;
@@ -830,7 +907,7 @@ function generateIndicCombinations(consonants, vowels) {
             // Only combine consonants with dependent vowels
             combinations.push({
                 char: consonant.char + vowel.char,
-                roman: [baseRoman + vowel.roman[0]]
+                roman: consonant.roman.map(roman => roman.slice(0, -1) + vowel.roman[0])            
             });
         });
     });
