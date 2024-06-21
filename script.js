@@ -61,8 +61,6 @@ const teluguStressedConsonants = [
     { char: 'భ', roman: ['Ba', 'Bha', 'bha'] },
     { char: 'ష', roman: ['Sha', 'Shha', 'shha'] }
 ];
-
-
 const teluguDiacriticVowels = [
     { char: 'ా', roman: ['aa'] },
     { char: 'ి', roman: ['i'] },
@@ -94,7 +92,6 @@ const devanagariVowels = [
     { char: 'ऌ', roman: ['l'] },
     { char: 'ॡ', roman: ['ll'] }
 ];
-
 const devanagariConsonants = [
     { char: 'क', roman: ['ka'] },
     { char: 'ग', roman: ['ga'] },
@@ -120,7 +117,6 @@ const devanagariConsonants = [
     { char: 'ह', roman: ['ha'] },
     { char: 'ळ', roman: ['la'] }
 ];
-
 const devanagariStressedConsonants = [
     { char: 'ख', roman: ['Ka', 'kha'] },
     { char: 'घ', roman: ['Ga', 'gha'] },
@@ -134,7 +130,6 @@ const devanagariStressedConsonants = [
     { char: 'भ', roman: ['Ba', 'bha'] },
     { char: 'ष', roman: ['Sha', 'shha'] }
 ];
-
 const devanagariDiacriticVowels = [
     { char: '', roman: ['a'] },  // empty char for inherent vowel
     { char: 'ा', roman: ['aa', 'ā'] },
@@ -187,7 +182,6 @@ const hiraganaVowels = [
     { char: 'え', roman: ['e'] },
     { char: 'お', roman: ['o'] }
 ];
-
 const hiraganaConsonants = [
     { char: 'か', roman: ['ka'] },
     { char: 'き', roman: ['ki'] },
@@ -256,7 +250,6 @@ const hiraganaConsonants = [
     { char: 'を', roman: ['wo'] },
     { char: 'ん', roman: ['n'] }
 ];
-
 const hiraganaCombinations = [
     { char: 'きゃ', roman: ['kya'] },
     { char: 'きゅ', roman: ['kyu'] },
@@ -411,6 +404,51 @@ const katakanaCombinations = [
     { char: 'リョ', roman: ['ryo'] }
 ];
 
+// Arrays of Hangul characters and their Roman alphabet equivalents
+const hangulVowels = [
+    { char: 'ㅏ', roman: ['a'] },
+    { char: 'ㅑ', roman: ['ya'] },
+    { char: 'ㅓ', roman: ['eo'] },
+    { char: 'ㅕ', roman: ['yeo'] },
+    { char: 'ㅗ', roman: ['o'] },
+    { char: 'ㅛ', roman: ['yo'] },
+    { char: 'ㅜ', roman: ['u'] },
+    { char: 'ㅠ', roman: ['yu'] },
+    { char: 'ㅡ', roman: ['eu'] },
+    { char: 'ㅣ', roman: ['i'] },
+    { char: 'ㅐ', roman: ['ae'] },
+    { char: 'ㅒ', roman: ['yae'] },
+    { char: 'ㅔ', roman: ['e'] },
+    { char: 'ㅖ', roman: ['ye'] },
+    { char: 'ㅘ', roman: ['wa'] },
+    { char: 'ㅙ', roman: ['wae'] },
+    { char: 'ㅚ', roman: ['oe'] },
+    { char: 'ㅝ', roman: ['wo'] },
+    { char: 'ㅞ', roman: ['we'] },
+    { char: 'ㅟ', roman: ['wi'] },
+    { char: 'ㅢ', roman: ['ui'] }
+];
+const hangulConsonants = [
+    { char: 'ㄱ', roman: ['g', 'k'] },
+    { char: 'ㄴ', roman: ['n'] },
+    { char: 'ㄷ', roman: ['d', 't'] },
+    { char: 'ㄹ', roman: ['r', 'l'] },
+    { char: 'ㅁ', roman: ['m'] },
+    { char: 'ㅂ', roman: ['b', 'p'] },
+    { char: 'ㅅ', roman: ['s'] },
+    { char: 'ㅇ', roman: ['ng'] },
+    { char: 'ㅈ', roman: ['j'] },
+    { char: 'ㅊ', roman: ['ch'] },
+    { char: 'ㅋ', roman: ['k'] },
+    { char: 'ㅌ', roman: ['t'] },
+    { char: 'ㅍ', roman: ['p'] },
+    { char: 'ㅎ', roman: ['h'] },
+    { char: 'ㄲ', roman: ['kk'] },
+    { char: 'ㄸ', roman: ['tt'] },
+    { char: 'ㅃ', roman: ['pp'] },
+    { char: 'ㅆ', roman: ['ss'] },
+    { char: 'ㅉ', roman: ['jj'] }
+];
 // Arrays of Bopomofo characters and their Roman alphabet equivalents
 const bopomofoVowels = [
     { char: 'ㄚ', roman: ['a'] },
@@ -505,7 +543,6 @@ const greekUppercase = [
     { char: 'Ψ', roman: ['Ps', 'Psi'] },
     { char: 'Ω', roman: ['OO', 'Omega'] }
 ];
-
 const greekLowercase = [
     { char: 'α', roman: ['a', 'alpha'] },
     { char: 'β', roman: ['b', 'v', 'beta'] },
@@ -545,7 +582,7 @@ const cyrillicUppercase = [
     { char: 'Ж', roman: ['Zh', 'Zhe'] },
     { char: 'З', roman: ['Z', 'Ze'] },
     { char: 'И', roman: ['I', 'I'] },
-    { char: 'Й', roman: ['Y', 'Short I'] },
+    { char: 'Й', roman: ['Y', 'Short I', 'I'] },
     { char: 'К', roman: ['K', 'Ka'] },
     { char: 'Л', roman: ['L', 'El'] },
     { char: 'М', roman: ['M', 'Em'] },
@@ -569,7 +606,6 @@ const cyrillicUppercase = [
     { char: 'Ю', roman: ['Yu', 'Yu'] },
     { char: 'Я', roman: ['Ya', 'Ya'] }
 ];
-
 const cyrillicLowercase = [
     { char: 'а', roman: ['a', 'a'] },
     { char: 'б', roman: ['b', 'be'] },
@@ -581,7 +617,7 @@ const cyrillicLowercase = [
     { char: 'ж', roman: ['zh', 'zhe'] },
     { char: 'з', roman: ['z', 'ze'] },
     { char: 'и', roman: ['i', 'i'] },
-    { char: 'й', roman: ['y', 'short i'] },
+    { char: 'й', roman: ['y', 'short i', 'i'] },
     { char: 'к', roman: ['k', 'ka'] },
     { char: 'л', roman: ['l', 'el'] },
     { char: 'м', roman: ['m', 'em'] },
@@ -605,8 +641,6 @@ const cyrillicLowercase = [
     { char: 'ю', roman: ['yu', 'yu'] },
     { char: 'я', roman: ['ya', 'ya'] }
 ];
-
-
 
 let characters = [];
 let currentCharacterIndex = 0;
@@ -645,8 +679,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const arabicOptions = document.getElementById('arabic-options');
     const hiraganaOptions = document.getElementById('hiragana-options');
     const katakanaOptions = document.getElementById('katakana-options');
-    const bopomofoOptions = document.getElementById('bopomofo-options')
+    const hangulOptions = document.getElementById('hangul-options');
+    const bopomofoOptions = document.getElementById('bopomofo-options');
     const greekOptions = document.getElementById('greek-options');
+    const cyrillicOptions = document.getElementById('cyrillic-options');
 
     const teluguVowelsCheckbox = document.getElementById('telugu-vowels');
     const teluguConsonantsCheckbox = document.getElementById('telugu-consonants');
@@ -666,12 +702,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const katakanaConsonantsCheckbox = document.getElementById('katakana-consonants');
     const katakanaCombinationsCheckbox = document.getElementById('katakana-combinations');
 
+    const hangulVowelsCheckbox = document.getElementById('hangul-vowels');
+    const hangulConsonantsCheckbox = document.getElementById('hangul-consonants');
+    const hangulCombinationsCheckbox = document.getElementById('hangul-combinations');
+
     const bopomofoVowelsCheckbox = document.getElementById('bopomofo-vowels');
     const bopomofoConsonantsCheckbox = document.getElementById('bopomofo-consonants');
     const bopomofoCombinationsCheckbox = document.getElementById('bopomofo-combinations');
 
     const greekUppercaseCheckbox = document.getElementById('greek-uppercase');
     const greekLowercaseCheckbox = document.getElementById('greek-lowercase');
+
+    const cyrillicUppercaseCheckbox = document.getElementById('cyrillic-uppercase');
+    const cyrillicLowercaseCheckbox = document.getElementById('cyrillic-lowercase');
+
 
     languageButton.addEventListener('click', () => {
         selectedLanguage = languageSelect.value;
@@ -680,8 +724,10 @@ document.addEventListener('DOMContentLoaded', () => {
         arabicOptions.style.display = 'none';
         hiraganaOptions.style.display = 'none';
         katakanaOptions.style.display = 'none';
+        hangulOptions.style.display = 'none';
         bopomofoOptions.style.display = 'none';
         greekOptions.style.display = 'none';
+        cyrillicOptions.style.display = 'none';
 
         if (selectedLanguage === 'telugu') {
             teluguOptions.style.display = 'block';
@@ -693,10 +739,14 @@ document.addEventListener('DOMContentLoaded', () => {
             hiraganaOptions.style.display = 'block';
         } else if (selectedLanguage === 'katakana') {
             katakanaOptions.style.display = 'block';
+        } else if (selectedLanguage === 'hangul') {
+            hangulOptions.style.display = 'block';
         } else if (selectedLanguage === 'bopomofo') {
             bopomofoOptions.style.display = 'block';
         } else if (selectedLanguage === 'greek') {
             greekOptions.style.display = 'block';
+        } else if (selectedLanguage === 'cyrillic') {
+            cyrillicOptions.style.display = 'block';
         }
         
 
@@ -734,7 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
         // Make userAnswer lowercase for case-insensitive languages
-        const caseInsensitiveLanguages = ['greek', 'hiragana', 'katakana', 'bopomofo']; // Add other languages as needed
+        const caseInsensitiveLanguages = ['greek', 'hiragana', 'katakana', 'bopomofo', 'cyrillic', 'hangul']; // Add other languages as needed
         if (caseInsensitiveLanguages.includes(selectedLanguage.toLowerCase())) {
             userAnswer = userAnswer.toLowerCase();
             correctRomanizations = correctRomanizations.map(roman => roman.toLowerCase());        }
@@ -766,10 +816,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
         displayCharacter();
     }
-    
-    
-    
-    
 
     function startTimer() {
         timer = setInterval(() => {
@@ -843,6 +889,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (katakanaCombinationsCheckbox.checked && selectedConsonants.length > 0) {
                 characters = characters.concat(katakanaCombinations);
             }
+        } else if (selectedLanguage === 'hangul') {
+            if (hangulVowelsCheckbox.checked) {
+                characters = characters.concat(hangulVowels);
+            }
+            if (hangulConsonantsCheckbox.checked) {
+                selectedConsonants = selectedConsonants.concat(hangulConsonants);
+                characters = characters.concat(hangulConsonants);
+            }
+            if (hangulCombinationsCheckbox.checked && selectedConsonants.length > 0) {
+                characters = characters.concat(generateHangulCombinations(hangulConsonants, hangulVowels));
+            }
         } else if (selectedLanguage === 'bopomofo') {
             if (bopomofoVowelsCheckbox.checked) {
                 characters = characters.concat(bopomofoVowels);
@@ -854,7 +911,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bopomofoCombinationsCheckbox.checked && selectedConsonants.length > 0) {
                 characters = characters.concat(bopomofoCombinations);
             }
-        } else if (selectedLanguage == 'greek') {
+        } else if (selectedLanguage === 'greek') {
             if (greekLowercaseCheckbox.checked) {
                 characters = characters.concat(greekLowercase);
             }
@@ -862,6 +919,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 characters = characters.concat(greekUppercase);
             }
             
+        } else if (selectedLanguage === 'cyrillic') {
+            if (cyrillicLowercaseCheckbox.checked) {
+                characters = characters.concat(cyrillicLowercase);
+            }
+            if (cyrillicUppercaseCheckbox.checked) {
+                characters = characters.concat(cyrillicUppercase);
+            }
         }
 
     
@@ -894,6 +958,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+function generateHangulCombinations(consonants, vowels) {
+    const combinations = [];
+    consonants.forEach(consonant => {
+        vowels.forEach(vowel => {
+            const syllable = createHangulSyllable(consonant.char, vowel.char);
+            const romanizations = combineRoman(consonant.roman, vowel.roman);
+            combinations.push({ char: syllable, roman: romanizations });
+        });
+    });
+    return combinations;
+}
+
+
+function createHangulSyllable(consonant, vowel) {
+    const initialConsonantCode = consonant.charCodeAt(0) - 0x1100;
+    const medialVowelCode = vowel.charCodeAt(0) - 0x1161;
+    const syllableCode = 0xAC00 + (initialConsonantCode * 588) + (medialVowelCode * 28);
+    return String.fromCharCode(syllableCode);
+}
+function combineRoman(consonantRoman, vowelRoman) {
+    const combined = [];
+    consonantRoman.forEach(c => {
+        vowelRoman.forEach(v => {
+            combined.push(c + v);
+        });
+    });
+    return combined;
+}
 
 function generateIndicCombinations(consonants, vowels) {
     const combinations = [];

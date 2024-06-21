@@ -17,8 +17,10 @@
                 <option value="arabic">Arabic</option>
                 <option value="hiragana">Hiragana</option>
                 <option value="katakana">Katakana</option>
+                <option value="hangul">Hangul</option>
                 <option value="bopomofo">Bopomofo</option>
                 <option value="greek">Greek</option>
+                <option value="cyrillic">Cyrillic</option>
             </select>
             <button id="language-button">Next</button>
         </div>
@@ -48,6 +50,11 @@
                 <label><input type="checkbox" id="katakana-consonants" checked> Consonants</label>
                 <label><input type="checkbox" id="katakana-combinations"checked> Combinations</label>
             </div>
+            <div id="hangul-options" style="display:none;">
+                <label><input type="checkbox" id="hangul-vowels" checked> Vowels</label>
+                <label><input type="checkbox" id="hangul-consonants" checked> Consonants</label>
+                <label><input type="checkbox" id="hangul-combinations"checked> Combinations</label>
+            </div>
             <div id="bopomofo-options" style="display:none;">
                 <label><input type="checkbox" id="bopomofo-vowels" checked> Vowels</label>
                 <label><input type="checkbox" id="bopomofo-consonants" checked> Consonants</label>
@@ -56,6 +63,10 @@
             <div id="greek-options" style="display:none;">
                 <label><input type="checkbox" id="greek-uppercase" checked> Uppercase</label>
                 <label><input type="checkbox" id="greek-lowercase" checked> Lowercase</label>
+            </div>
+            <div id="cyrillic-options" style="display:none;">
+                <label><input type="checkbox" id="cyrillic-uppercase" checked> Uppercase</label>
+                <label><input type="checkbox" id="cyrillic-lowercase" checked> Lowercase</label>
             </div>
             <br>
             <label for="time-limit">Time (seconds):</label>
