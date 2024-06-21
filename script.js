@@ -99,7 +99,7 @@ const devanagariConsonants = [
     { char: 'क', roman: ['ka'] },
     { char: 'ग', roman: ['ga'] },
     { char: 'ङ', roman: ['gna'] },
-    { char: 'च', roman: ['cha'] },
+    { char: 'च', roman: ['cha', 'ca'] },
     { char: 'ज', roman: ['ja'] },
     { char: 'ञ', roman: ['nya'] },
     { char: 'ट', roman: ['ta'] },
@@ -122,17 +122,17 @@ const devanagariConsonants = [
 ];
 
 const devanagariStressedConsonants = [
-    { char: 'ख', roman: ['Ka'] },
-    { char: 'घ', roman: ['Ga'] },
-    { char: 'छ', roman: ['Cha'] },
-    { char: 'झ', roman: ['Ja'] },
-    { char: 'ठ', roman: ['Ta'] },
-    { char: 'ढ', roman: ['Da'] },
-    { char: 'थ', roman: ['Tha'] },
-    { char: 'ध', roman: ['Dha'] },
-    { char: 'फ', roman: ['Pa'] },
-    { char: 'भ', roman: ['Ba'] },
-    { char: 'ष', roman: ['Sha'] }
+    { char: 'ख', roman: ['Ka', 'kha'] },
+    { char: 'घ', roman: ['Ga', 'gha'] },
+    { char: 'छ', roman: ['Cha', 'chha', 'Ca'] },
+    { char: 'झ', roman: ['Ja', 'jha'] },
+    { char: 'ठ', roman: ['Ta', 'tha'] },
+    { char: 'ढ', roman: ['Da', 'dha'] },
+    { char: 'थ', roman: ['Tha', 'thha'] },
+    { char: 'ध', roman: ['Dha', 'dhha'] },
+    { char: 'फ', roman: ['Pa', 'pha'] },
+    { char: 'भ', roman: ['Ba', 'bha'] },
+    { char: 'ष', roman: ['Sha', 'shha'] }
 ];
 
 const devanagariDiacriticVowels = [
@@ -142,10 +142,6 @@ const devanagariDiacriticVowels = [
     { char: 'ी', roman: ['ii', 'ī'] },
     { char: 'ु', roman: ['u'] },
     { char: 'ू', roman: ['uu', 'ū'] },
-    { char: 'ृ', roman: ['r'] },
-    { char: 'ॄ', roman: ['rr'] },
-    { char: 'ॢ', roman: ['l'] },
-    { char: 'ॣ', roman: ['ll'] },
     { char: 'े', roman: ['e'] },
     { char: 'ै', roman: ['ai'] },
     { char: 'ो', roman: ['o'] },
