@@ -1,11 +1,3 @@
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
 // Arrays of Telugu characters and their Roman alphabet equivalents
 const teluguVowels = [
     { char: 'అ', roman: ['a'] },
@@ -651,6 +643,362 @@ let timer;
 let timerStarted = false;
 let selectedLanguage = 'telugu';
 let previousCharacter = null; // Add this line at the beginning of the script to keep track of the previous character// Function to shuffle the characters array
+let practiceType = ''; // Default to character practice
+let currentPage = 'landing-page'; // Track the current page
+let uniqueWords = [];
+let uniqueChars = [];
+
+
+// Define the tree structure
+const pageTree = {
+    'landing-page': null,
+    'language-selection': 'landing-page',
+    'options': 'language-selection',
+    'character-practice-area': 'options',
+    'words-practice-area': 'options',
+    'about-us-page': 'landing-page',
+    'donate-page': 'landing-page'
+};
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Add Event Listeners for New Buttons
+    document.getElementById('character-practice-button').addEventListener('click', function() {
+        practiceType = 'character';
+        navigateTo('language-selection');
+    });
+
+    document.getElementById('words-practice-button').addEventListener('click', function() {
+        practiceType = 'word';
+        navigateTo('language-selection');
+    });
+
+    document.getElementById('language-button').addEventListener('click', function() {
+        if (practiceType === 'character') {
+            navigateTo('options');
+        } else if (practiceType === 'word') {
+            navigateTo('file-upload-section');
+        }
+    });
+
+    // Event listener for start practice button
+    document.getElementById('start-button').addEventListener('click', function() {
+        if (practiceType === 'character') {
+            // Ensure characters are populated for character practice
+            populateCharacters();
+        } else if (practiceType === 'word') {
+            // Ensure words are populated for word practice
+            populateWords();
+        }
+        startPractice();
+    });
+
+    document.getElementById('about-us-button').addEventListener('click', () => {
+        navigateTo('about-us-page');
+    });
+
+    document.getElementById('donate-button').addEventListener('click', () => {
+        navigateTo('donate-page');
+    });
+    // Go Back Buttons
+    document.querySelectorAll('.container button[onclick="goBack()"]').forEach(button => {
+        button.addEventListener('click', function() {
+            goBack();
+        });
+    });
+
+    // Event listener for file upload
+    document.getElementById('file-upload').addEventListener('change', handleFileUpload);
+
+    
+    // Event listener for submit answer button
+    document.getElementById('submit-answer').addEventListener('click', () => {
+        let userAnswer = document.getElementById('input-answer').value;
+        const answer = document.getElementById('input-answer').value.trim();
+        const currentChar = document.getElementById('character-display').textContent.trim();
+        // Replace this with your logic to check the answer
+        if (answer === currentChar) {
+            correctScore++;
+            document.getElementById('feedback').textContent = 'Correct!';
+        } else {
+            incorrectScore++;
+            document.getElementById('feedback').textContent = 'Incorrect!';
+        }
+        document.getElementById('correct-score').textContent = `Correct: ${correctScore}`;
+        document.getElementById('incorrect-score').textContent = `Incorrect: ${incorrectScore}`;
+        displayNextCharacter();
+    });
+
+    // Event listener for language selection dropdown
+    document.getElementById('language-select').addEventListener('change', function () {
+        updateOptions(this.value);
+    });
+});
+
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const text = e.target.result;
+            uniqueChars = getUniqueCharacters(text);
+            uniqueWords = getUniqueWords(text);
+        };
+        reader.readAsText(file, 'UTF-8');
+    }
+}
+
+function getUniqueCharacters(text) {
+    const uniqueChars = new Set(text);
+    return Array.from(uniqueChars).sort();
+}
+
+function getUniqueWords(text) {
+    const words = text.split(/\s+/);
+    const uniqueWords = new Set(words);
+    return Array.from(uniqueWords).sort();
+}
+
+function startPractice() {
+    console.log('we have begun practice');
+
+    // Reset scores and state variables
+    resetPracticeState(practiceType === 'character' ? 'character-practice-area' : 'words-practice-area');
+
+    if (practiceType === 'word') {
+        if (uniqueWords.length === 0) {
+            displayErrorMessage('Please upload a valid text file to start the practice.');
+        } else {
+            navigateTo('words-practice-area');
+            displayNextWord();
+        }
+    } else if (practiceType === 'character') {
+        if (uniqueChars.length > 0) {
+            navigateTo('character-practice-area');
+            displayNextCharacter();
+        } else {
+            displayErrorMessage('Please select valid options to start character practice.');
+        }
+    } else {
+        console.log("Unknown practice type:", practiceType);
+    }
+}
+
+
+function displayErrorMessage(message) {
+    const errorContainer = document.getElementById('error-container');
+    errorContainer.innerText = message;
+    errorContainer.style.display = 'block';
+}
+
+
+function displayNextCharacter() {
+    if (currentCharacterIndex < uniqueChars.length) {
+        document.getElementById('character-display').textContent = uniqueChars[currentCharacterIndex];
+        currentCharacterIndex++;
+    } else {
+        displayCompletionMessage();
+    }
+}
+
+function displayNextWord() {
+    if (currentWordIndex < uniqueWords.length) {
+        document.getElementById('word-display').textContent = uniqueWords[currentWordIndex];
+        currentWordIndex++;
+    } else {
+        displayCompletionMessage();
+    }
+}
+
+function displayCompletionMessage() {
+    let errorContainer = document.getElementById('error-container');
+    errorContainer.innerText = 'Practice session completed!';
+    errorContainer.style.display = 'block';
+}
+
+// Call resetPracticeState when navigating back to reset the state properly
+document.querySelectorAll('.container button[onclick="goBack()"]').forEach(button => {
+    button.addEventListener('click', function() {
+        resetPracticeState(practiceType === 'character' ? 'character-practice-area' : 'words-practice-area');
+        goBack();
+    });
+});
+
+function populateCharacters() {
+    let language = document.getElementById('language-select').value;
+    uniqueChars = []; // Reset uniqueChars array
+
+    if (language === 'telugu') {
+        if (document.getElementById('telugu-vowels').checked) {
+            uniqueChars.push(...teluguVowels);
+        }
+        if (document.getElementById('telugu-consonants').checked) {
+            uniqueChars.push(...teluguConsonants);
+        }
+        if (document.getElementById('telugu-stressed-consonants').checked) {
+            uniqueChars.push(...teluguStressedConsonants);
+        }
+        if (document.getElementById('telugu-combinations').checked) {
+            uniqueChars.push(...teluguCombinations); // Assuming you have such an array
+        }
+    } else if (language === 'devanagari') {
+        if (document.getElementById('devanagari-vowels').checked) {
+            uniqueChars.push(...devanagariVowels);
+        }
+        if (document.getElementById('devanagari-consonants').checked) {
+            uniqueChars.push(...devanagariConsonants);
+        }
+        if (document.getElementById('devanagari-stressed-consonants').checked) {
+            uniqueChars.push(...devanagariStressedConsonants);
+        }
+        if (document.getElementById('devanagari-combinations').checked) {
+            uniqueChars.push(...devanagariCombinations); // Assuming you have such an array
+        }
+    } else if (language === 'arabic') {
+        if (document.getElementById('arabic-consonants').checked) {
+            uniqueChars.push(...arabicConsonants);
+        }
+    } else if (language === 'hiragana') {
+        if (document.getElementById('hiragana-vowels').checked) {
+            uniqueChars.push(...hiraganaVowels);
+        }
+        if (document.getElementById('hiragana-consonants').checked) {
+            uniqueChars.push(...hiraganaConsonants);
+        }
+        if (document.getElementById('hiragana-combinations').checked) {
+            uniqueChars.push(...hiraganaCombinations); // Assuming you have such an array
+        }
+    } else if (language === 'katakana') {
+        if (document.getElementById('katakana-vowels').checked) {
+            uniqueChars.push(...katakanaVowels);
+        }
+        if (document.getElementById('katakana-consonants').checked) {
+            uniqueChars.push(...katakanaConsonants);
+        }
+        if (document.getElementById('katakana-combinations').checked) {
+            uniqueChars.push(...katakanaCombinations); // Assuming you have such an array
+        }
+    } else if (language === 'hangul') {
+        if (document.getElementById('hangul-vowels').checked) {
+            uniqueChars.push(...hangulVowels);
+        }
+        if (document.getElementById('hangul-consonants').checked) {
+            uniqueChars.push(...hangulConsonants);
+        }
+        if (document.getElementById('hangul-combinations').checked) {
+            uniqueChars.push(...generateHangulCombinations(hangulConsonants, hangulVowels)); // Assuming you have such an array
+        }
+    } else if (language === 'bopomofo') {
+        if (document.getElementById('bopomofo-vowels').checked) {
+            uniqueChars.push(...bopomofoVowels);
+        }
+        if (document.getElementById('bopomofo-consonants').checked) {
+            uniqueChars.push(...bopomofoConsonants);
+        }
+        if (document.getElementById('bopomofo-combinations').checked) {
+            uniqueChars.push(...bopomofoCombinations); // Assuming you have such an array
+        }
+    } else if (language === 'greek') {
+        if (document.getElementById('greek-uppercase').checked) {
+            uniqueChars.push(...greekUppercase);
+        }
+        if (document.getElementById('greek-lowercase').checked) {
+            uniqueChars.push(...greekLowercase);
+        }
+    } else if (language === 'cyrillic') {
+        if (document.getElementById('cyrillic-uppercase').checked) {
+            uniqueChars.push(...cyrillicUppercase);
+        }
+        if (document.getElementById('cyrillic-lowercase').checked) {
+            uniqueChars.push(...cyrillicLowercase);
+        }
+    }
+}
+
+function populateWords() {
+    console.log('kill yourself');
+    // Logic to populate uniqueWords based on user input or text file
+}
+
+
+
+function resetPracticeState(pageId) {
+    if (pageId === 'character-practice-area') {
+        currentCharacterIndex = 0;
+        correctScore = 0;
+        incorrectScore = 0;
+        document.getElementById('correct-score').textContent = `Correct: ${correctScore}`;
+        document.getElementById('incorrect-score').textContent = `Incorrect: ${incorrectScore}`;
+        document.getElementById('character-display').textContent = '';
+        document.getElementById('input-answer').value = '';
+        document.getElementById('feedback').textContent = '';
+        console.log('Character practice state reset.');
+    } else if (pageId === 'words-practice-area') {
+        currentWordIndex = 0;
+        correctScoreWords = 0;
+        incorrectScoreWords = 0;
+        document.getElementById('correct-score-words').textContent = `Correct: ${correctScoreWords}`;
+        document.getElementById('incorrect-score-words').textContent = `Incorrect: ${incorrectScoreWords}`;
+        document.getElementById('word-display').textContent = '';
+        document.getElementById('input-answer-words').value = '';
+        document.getElementById('feedback-words').textContent = '';
+        console.log('Words practice state reset.');
+    }
+}
+
+
+
+// Create the navigateTo Function
+const pages = ['landing-page', 'language-selection', 'options', 'character-practice-area', 'words-practice-area', 'about-us-page', 'donate-page'];
+
+function navigateTo(pageId) {
+    console.log(`Navigating to: ${pageId}`);
+    
+    // Hide all pages
+    document.querySelectorAll('.container > div').forEach(div => {
+        div.style.display = 'none';
+    });
+
+    // Show the target page
+    let targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.style.display = 'block';
+        currentPage = pageId;
+    } else {
+        console.error(`Element with ID ${pageId} not found.`);
+    }
+}
+
+
+// Add Back Navigation Function
+function goBack() {
+    const parentPage = pageTree[currentPage];
+    if (parentPage) {
+        navigateTo(parentPage);
+        resetPracticeState()
+    } else {
+        navigateTo('landing-page'); // Default to landing page if no parent is found
+    }
+}
+
+function updateOptions(language) {
+    const options = [
+        'telugu-options',
+        'devanagari-options',
+        'arabic-options',
+        'hiragana-options',
+        'katakana-options',
+        'hangul-options',
+        'bopomofo-options',
+        'greek-options',
+        'cyrillic-options'
+    ];
+
+    options.forEach(option => {
+        document.getElementById(option).style.display = 'none';
+    });
+
+    document.getElementById(`${language}-options`).style.display = 'block';
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const characterDisplay = document.getElementById('character-display');
@@ -666,9 +1014,10 @@ document.addEventListener('DOMContentLoaded', () => {
     timeSlider.addEventListener('input', () => {
         timeValue.textContent = timeSlider.value === "0" ? "Unlimited" : timeSlider.value;
     });
+    
 
     const startButton = document.getElementById('start-button');
-    const practiceArea = document.getElementById('practice-area');
+    const practiceArea = document.getElementById('character-practice-area');
     const options = document.getElementById('options');
     const timeLimitInput = document.getElementById('time-limit');
     const languageSelect = document.getElementById('language-select');
@@ -958,6 +1307,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 function generateHangulCombinations(consonants, vowels) {
     const combinations = [];
     consonants.forEach(consonant => {
@@ -1001,5 +1358,3 @@ function generateIndicCombinations(consonants, vowels) {
     });
     return combinations;
 }
-
-

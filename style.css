@@ -43,7 +43,7 @@ button {
     border: none;
     border-radius: 8px;
     background-color: #74ebd5;
-    color: white;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }

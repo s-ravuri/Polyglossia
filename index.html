@@ -8,8 +8,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>Language Practice</h1>
-        <div id="language-selection">
+        <div id="error-container" style="display:none; color: red; margin-bottom: 20px;"></div>
+        <!-- Landing Page -->
+        <div id="landing-page">
+            <h1>Welcome to Polyglossa!</h1>
+            <h3>A Language Practice Application</h3>
+
+            <button id="character-practice-button">Character Practice</button>
+            <button id="words-practice-button">Words Practice</button>
+            <button id="about-us-button">About Us</button>
+            <button id="donate-button">Donate</button>
+        </div>
+
+        <!-- Select Language Page -->
+        <div id="language-selection" style="display:none;">
+            <h1>Language Practice</h1>
             <label for="language-select">Select Language:</label>
             <select id="language-select">
                 <option value="telugu">Telugu</option>
@@ -23,59 +36,74 @@
                 <option value="cyrillic">Cyrillic</option>
             </select>
             <button id="language-button">Next</button>
+            <button onclick="goBack()">Back</button> <!-- Back Button -->
         </div>
+
+        <!-- Options Page -->
         <div id="options" style="display:none;">
-            <div id="telugu-options" style="display:none;">
-                <label><input type="checkbox" id="telugu-vowels" checked> Vowels</label>
-                <label><input type="checkbox" id="telugu-consonants" checked> Consonants</label>
-                <label><input type="checkbox" id="telugu-stressed-consonants" checked> Stressed Consonants</label>
-                <label><input type="checkbox" id="telugu-combinations" checked> Consonant-Vowel Combinations</label>
+            <div id="file-upload-section" style="display:none;">
+                <label for="file-upload">Upload Text File:</label>
+                <input type="file" id="file-upload" accept=".txt">
             </div>
-            <div id="devanagari-options" style="display:none;">
-                <label><input type="checkbox" id="devanagari-vowels" checked> Vowels</label>
-                <label><input type="checkbox" id="devanagari-consonants" checked> Consonants</label>
-                <label><input type="checkbox" id="devanagari-stressed-consonants" checked> Stressed Consonants</label>
-                <label><input type="checkbox" id="devanagari-combinations" checked> Consonant-Vowel Combinations</label>
-            </div>
-            <div id="arabic-options" style="display:none;">
-                <p>All Arabic letters are treated as consonants.</p>
-            </div>
-            <div id="hiragana-options" style="display:none;">
-                <label><input type="checkbox" id="hiragana-vowels" checked> Vowels</label>
-                <label><input type="checkbox" id="hiragana-consonants" checked> Consonants</label>
-                <label><input type="checkbox" id="hiragana-combinations" checked> Combinations</label>
-            </div>
-            <div id="katakana-options" style="display:none;">
-                <label><input type="checkbox" id="katakana-vowels" checked> Vowels</label>
-                <label><input type="checkbox" id="katakana-consonants" checked> Consonants</label>
-                <label><input type="checkbox" id="katakana-combinations"checked> Combinations</label>
-            </div>
-            <div id="hangul-options" style="display:none;">
-                <label><input type="checkbox" id="hangul-vowels" checked> Vowels</label>
-                <label><input type="checkbox" id="hangul-consonants" checked> Consonants</label>
-                <label><input type="checkbox" id="hangul-combinations"checked> Combinations</label>
-            </div>
-            <div id="bopomofo-options" style="display:none;">
-                <label><input type="checkbox" id="bopomofo-vowels" checked> Vowels</label>
-                <label><input type="checkbox" id="bopomofo-consonants" checked> Consonants</label>
-                <label><input type="checkbox" id="bopomofo-combinations"checked> Combinations</label>
-            </div>
-            <div id="greek-options" style="display:none;">
-                <label><input type="checkbox" id="greek-uppercase" checked> Uppercase</label>
-                <label><input type="checkbox" id="greek-lowercase" checked> Lowercase</label>
-            </div>
-            <div id="cyrillic-options" style="display:none;">
-                <label><input type="checkbox" id="cyrillic-uppercase" checked> Uppercase</label>
-                <label><input type="checkbox" id="cyrillic-lowercase" checked> Lowercase</label>
+            <div id="character-options">
+                <div id="telugu-options" style="display:none;">
+                    <label><input type="checkbox" id="telugu-vowels" checked> Vowels</label>
+                    <label><input type="checkbox" id="telugu-consonants" checked> Consonants</label>
+                    <label><input type="checkbox" id="telugu-stressed-consonants" checked> Stressed Consonants</label>
+                    <label><input type="checkbox" id="telugu-combinations" checked> Consonant-Vowel Combinations</label>
+                </div>
+                <div id="devanagari-options" style="display:none;">
+                    <label><input type="checkbox" id="devanagari-vowels" checked> Vowels</label>
+                    <label><input type="checkbox" id="devanagari-consonants" checked> Consonants</label>
+                    <label><input type="checkbox" id="devanagari-stressed-consonants" checked> Stressed Consonants</label>
+                    <label><input type="checkbox" id="devanagari-combinations" checked> Consonant-Vowel Combinations</label>
+                </div>
+                <div id="arabic-options" style="display:none;">
+                    <p>All Arabic letters are treated as consonants.</p>
+                </div>
+                <div id="hiragana-options" style="display:none;">
+                    <label><input type="checkbox" id="hiragana-vowels" checked> Vowels</label>
+                    <label><input type="checkbox" id="hiragana-consonants" checked> Consonants</label>
+                    <label><input type="checkbox" id="hiragana-combinations" checked> Combinations</label>
+                </div>
+                <div id="katakana-options" style="display:none;">
+                    <label><input type="checkbox" id="katakana-vowels" checked> Vowels</label>
+                    <label><input type="checkbox" id="katakana-consonants" checked> Consonants</label>
+                    <label><input type="checkbox" id="katakana-combinations" checked> Combinations</label>
+                </div>
+                <div id="hangul-options" style="display:none;">
+                    <label><input type="checkbox" id="hangul-vowels" checked> Vowels</label>
+                    <label><input type="checkbox" id="hangul-consonants" checked> Consonants</label>
+                    <label><input type="checkbox" id="hangul-combinations" checked> Combinations</label>
+                </div>
+                <div id="bopomofo-options" style="display:none;">
+                    <label><input type="checkbox" id="bopomofo-vowels" checked> Vowels</label>
+                    <label><input type="checkbox" id="bopomofo-consonants" checked> Consonants</label>
+                    <label><input type="checkbox" id="bopomofo-combinations" checked> Combinations</label>
+                </div>
+                <div id="greek-options" style="display:none;">
+                    <label><input type="checkbox" id="greek-uppercase" checked> Uppercase</label>
+                    <label><input type="checkbox" id="greek-lowercase" checked> Lowercase</label>
+                </div>
+                <div id="cyrillic-options" style="display:none;">
+                    <label><input type="checkbox" id="cyrillic-uppercase" checked> Uppercase</label>
+                    <label><input type="checkbox" id="cyrillic-lowercase" checked> Lowercase</label>
+                </div>
             </div>
             <br>
             <label for="time-limit">Time (seconds):</label>
             <label for="time-slider">Time Limit (seconds):</label>
             <input type="range" id="time-slider" min="0" max="600" step="10" value="0">
-            <span id="time-value">0 = Unlimited</span>            <br>
+            <span id="time-value">0 = Unlimited</span>            
+            <br>
             <button id="start-button">Start Practice</button>
+            <button onclick="goBack()">Back</button> <!-- Back Button -->
         </div>
-        <div id="practice-area" style="display:none;">
+        
+        
+        <!-- Character Practice Area -->
+        <div id="character-practice-area" style="display:none;">
+            <h1>Character Practice</h1>
             <div id="character-display"></div>
             <input type="text" id="input-answer" placeholder="Enter Roman alphabet equivalent">
             <button id="submit-answer">Submit</button>
@@ -83,7 +111,41 @@
             <div id="correct-score">Correct: 0</div>
             <div id="incorrect-score">Incorrect: 0</div>
             <div id="timer">Time Left: 600</div>
+            <button onclick="goBack()">Back</button> <!-- Back Button -->
         </div>
+
+
+        <!-- Words Practice Area -->
+        <div id="words-practice-area" style="display:none;">
+            <h1>Words Practice</h1>
+            <div id="word-display"></div>
+            <input type="text" id="input-answer" placeholder="Enter Roman alphabet equivalent">
+            <button id="submit-answer-words">Submit</button>
+            <div id="feedback-words"></div>
+            <div id="correct-score-words">Correct: 0</div>
+            <div id="incorrect-score-words">Incorrect: 0</div>
+            <div id="timer">Time Left: 600</div>
+            <button onclick="goBack()">Back</button> <!-- Back Button -->
+        </div>
+        
+        <!-- About Us Page -->
+        <div id="about-us-page" style="display:none;">
+            <h1>About Us</h1>
+            <p>Hey there! I'm a linguist and polyglot who spends a lot of their time learning languages. A lot of this time is 
+                spent learning new alphabets, and I wanted a tool that would rapid memorize new characters with their English equivalents
+                for free. After building this, I decided to also add an option to practice with full words, so you can see
+                the characters in context with other characters. I hope you enjoy the app!
+            </p>
+            <button onclick="goBack()">Back</button>
+        </div>
+        
+        <!-- Donate Page -->
+        <div id="donate-page" style="display:none;">
+            <h1>Donate</h1>
+            <p>If you like our application, consider donating to support us.</p>
+            <button onclick="goBack()">Back</button>
+        </div>
+
     </div>
     <script src="script.js"></script>
 </body>
