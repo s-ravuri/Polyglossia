@@ -652,9 +652,10 @@ let uniqueChars = [];
 // Define the tree structure
 const pageTree = {
     'landing-page': null,
-    'language-selection': 'landing-page',
+    'characters-language-selection': 'landing-page',
+    'words-language-selection': 'landing-page',
     'options': 'language-selection',
-    'character-practice-area': 'options',
+    'characters-practice-area': 'options',
     'words-practice-area': 'options',
     'about-us-page': 'landing-page',
     'donate-page': 'landing-page'
@@ -662,22 +663,29 @@ const pageTree = {
 
 document.addEventListener('DOMContentLoaded', (event) => {
     // Add Event Listeners for New Buttons
-    document.getElementById('character-practice-button').addEventListener('click', function() {
+    document.getElementById('characters-practice-button').addEventListener('click', function() {
         practiceType = 'character';
-        navigateTo('language-selection');
+        navigateTo('characters-language-selection');
     });
 
     document.getElementById('words-practice-button').addEventListener('click', function() {
         practiceType = 'word';
-        navigateTo('language-selection');
+        navigateTo('words-language-selection');
+    });
+    
+
+    // Event listener for Character Language selection button
+    document.getElementById('characters-language-button').addEventListener('click', function() {
+        navigateTo('options');
+        document.getElementById('file-upload-section').style.display = 'none'; // Hide file upload section for character practice
+        document.getElementById('characters-options').style.display = 'block'; // Show character options
     });
 
-    document.getElementById('language-button').addEventListener('click', function() {
-        if (practiceType === 'character') {
-            navigateTo('options');
-        } else if (practiceType === 'word') {
-            navigateTo('file-upload-section');
-        }
+    // Event listener for Words Language selection button
+    document.getElementById('words-language-button').addEventListener('click', function() {
+        navigateTo('options');
+        document.getElementById('file-upload-section').style.display = 'block'; // Show file upload section for word practice
+        document.getElementById('characters-options').style.display = 'none'; // Hide character options
     });
 
     // Event listener for start practice button
@@ -714,7 +722,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('submit-answer').addEventListener('click', () => {
         let userAnswer = document.getElementById('input-answer').value;
         const answer = document.getElementById('input-answer').value.trim();
-        const currentChar = document.getElementById('character-display').textContent.trim();
+        const currentChar = document.getElementById('characters-display').textContent.trim();
         // Replace this with your logic to check the answer
         if (answer === currentChar) {
             correctScore++;
@@ -757,32 +765,24 @@ function getUniqueWords(text) {
     const uniqueWords = new Set(words);
     return Array.from(uniqueWords).sort();
 }
-
+// Start Practice function
 function startPractice() {
     console.log('we have begun practice');
 
     // Reset scores and state variables
-    resetPracticeState(practiceType === 'character' ? 'character-practice-area' : 'words-practice-area');
+    resetPracticeState(practiceType === 'character' ? 'characters-practice-area' : 'words-practice-area');
 
-    if (practiceType === 'word') {
-        if (uniqueWords.length === 0) {
-            displayErrorMessage('Please upload a valid text file to start the practice.');
-        } else {
-            navigateTo('words-practice-area');
-            displayNextWord();
-        }
-    } else if (practiceType === 'character') {
-        if (uniqueChars.length > 0) {
-            navigateTo('character-practice-area');
-            displayNextCharacter();
-        } else {
-            displayErrorMessage('Please select valid options to start character practice.');
-        }
+    // Hide file upload section for word practice if necessary
+    if (practiceType === 'word' && uniqueWords.length === 0) {
+        displayErrorMessage('Please upload a valid text file to start the practice.');
+        document.getElementById('file-upload-section').style.display = 'block';
     } else {
-        console.log("Unknown practice type:", practiceType);
+        document.getElementById('file-upload-section').style.display = 'none';
     }
-}
 
+    // Show the relevant practice area
+    navigateTo(practiceType === 'character' ? 'characters-practice-area' : 'words-practice-area');
+}
 
 function displayErrorMessage(message) {
     const errorContainer = document.getElementById('error-container');
@@ -793,7 +793,7 @@ function displayErrorMessage(message) {
 
 function displayNextCharacter() {
     if (currentCharacterIndex < uniqueChars.length) {
-        document.getElementById('character-display').textContent = uniqueChars[currentCharacterIndex];
+        document.getElementById('characters-display').textContent = uniqueChars[currentCharacterIndex];
         currentCharacterIndex++;
     } else {
         displayCompletionMessage();
@@ -818,7 +818,7 @@ function displayCompletionMessage() {
 // Call resetPracticeState when navigating back to reset the state properly
 document.querySelectorAll('.container button[onclick="goBack()"]').forEach(button => {
     button.addEventListener('click', function() {
-        resetPracticeState(practiceType === 'character' ? 'character-practice-area' : 'words-practice-area');
+        resetPracticeState(practiceType === 'character' ? 'characters-practice-area' : 'words-practice-area');
         goBack();
     });
 });
@@ -922,52 +922,37 @@ function populateWords() {
 
 
 function resetPracticeState(pageId) {
-    if (pageId === 'character-practice-area') {
-        currentCharacterIndex = 0;
-        correctScore = 0;
-        incorrectScore = 0;
-        document.getElementById('correct-score').textContent = `Correct: ${correctScore}`;
-        document.getElementById('incorrect-score').textContent = `Incorrect: ${incorrectScore}`;
-        document.getElementById('character-display').textContent = '';
-        document.getElementById('input-answer').value = '';
-        document.getElementById('feedback').textContent = '';
-        console.log('Character practice state reset.');
-    } else if (pageId === 'words-practice-area') {
-        currentWordIndex = 0;
-        correctScoreWords = 0;
-        incorrectScoreWords = 0;
-        document.getElementById('correct-score-words').textContent = `Correct: ${correctScoreWords}`;
-        document.getElementById('incorrect-score-words').textContent = `Incorrect: ${incorrectScoreWords}`;
-        document.getElementById('word-display').textContent = '';
-        document.getElementById('input-answer-words').value = '';
-        document.getElementById('feedback-words').textContent = '';
-        console.log('Words practice state reset.');
-    }
+      // Hide all sections initially
+      document.getElementById('characters-practice-area').style.display = 'none';
+      document.getElementById('words-practice-area').style.display = 'none';
+      document.getElementById('options').style.display = 'none';
+      document.getElementById('file-upload-section').style.display = 'none';  // Hide file upload section initially
+   // Reset scores
+   if (pageId === 'characters-practice-area') {
+    currentCharacterIndex = 0;
+    correctScore = 0;
+    incorrectScore = 0;
+    document.getElementById('correct-score').textContent = `Correct: ${correctScore}`;
+    document.getElementById('incorrect-score').textContent = `Incorrect: ${incorrectScore}`;
+} else if (pageId === 'words-practice-area') {
+    currentWordIndex = 0;
+    correctScore = 0;
+    incorrectScore = 0;
+    document.getElementById('correct-score-words').textContent = `Correct: ${correctScore}`;
+    document.getElementById('incorrect-score-words').textContent = `Incorrect: ${incorrectScore}`;
+     // Show the relevant practice area
+     document.getElementById(pageId).style.display = 'block';
+}
 }
 
 
-
-// Create the navigateTo Function
-const pages = ['landing-page', 'language-selection', 'options', 'character-practice-area', 'words-practice-area', 'about-us-page', 'donate-page'];
-
-function navigateTo(pageId) {
-    console.log(`Navigating to: ${pageId}`);
-    
-    // Hide all pages
-    document.querySelectorAll('.container > div').forEach(div => {
-        div.style.display = 'none';
+// Function to navigate to different sections
+function navigateTo(sectionId) {
+    const sections = ['landing-page', 'characters-language-selection', 'words-language-selection', 'options', 'characters-practice-area', 'words-practice-area', 'about-us-page', 'donate-page'];
+    sections.forEach(id => {
+        document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
     });
-
-    // Show the target page
-    let targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.style.display = 'block';
-        currentPage = pageId;
-    } else {
-        console.error(`Element with ID ${pageId} not found.`);
-    }
 }
-
 
 // Add Back Navigation Function
 function goBack() {
@@ -1001,7 +986,8 @@ function updateOptions(language) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const characterDisplay = document.getElementById('character-display');
+    const characterDisplay = document.getElementById('characters-display');
+    const wordsDisplay = document.getElementById('words-display');
     const inputAnswer = document.getElementById('input-answer');
     const submitAnswer = document.getElementById('submit-answer');
     const feedback = document.getElementById('feedback');
@@ -1017,11 +1003,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     const startButton = document.getElementById('start-button');
-    const practiceArea = document.getElementById('character-practice-area');
+    const practiceArea = document.getElementById('characters-practice-area');
     const options = document.getElementById('options');
     const timeLimitInput = document.getElementById('time-limit');
-    const languageSelect = document.getElementById('language-select');
-    const languageButton = document.getElementById('language-button');
+    const charactersLanguageSelect = document.getElementById('characters-language-select');
+    const wordsLanguageSelect = document.getElementById('words-language-select');
+    const charactersLanguageButton = document.getElementById('characters-language-button');
+    const wordsLanguageButton = document.getElementById('words-language-button');
+
 
     const teluguOptions = document.getElementById('telugu-options');
     const devanagariOptions = document.getElementById('devanagari-options')
@@ -1066,8 +1055,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cyrillicLowercaseCheckbox = document.getElementById('cyrillic-lowercase');
 
 
-    languageButton.addEventListener('click', () => {
-        selectedLanguage = languageSelect.value;
+    charactersLanguageButton.addEventListener('click', () => {
+        selectedLanguage = charactersLanguageSelect.value;
         teluguOptions.style.display = 'none';
         devanagariOptions.style.display = 'none';
         arabicOptions.style.display = 'none';

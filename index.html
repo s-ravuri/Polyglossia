@@ -14,17 +14,18 @@
             <h1>Welcome to Polyglossa!</h1>
             <h3>A Language Practice Application</h3>
 
-            <button id="character-practice-button">Character Practice</button>
+            <button id="characters-practice-button">Character Practice</button>
             <button id="words-practice-button">Words Practice</button>
             <button id="about-us-button">About Us</button>
             <button id="donate-button">Donate</button>
         </div>
 
-        <!-- Select Language Page -->
-        <div id="language-selection" style="display:none;">
-            <h1>Language Practice</h1>
-            <label for="language-select">Select Language:</label>
-            <select id="language-select">
+        <!-- Character Practice Language Selection Page -->
+        <div id="characters-language-selection" style="display:none;">
+            <h1>Character Practice</h1>
+            <div id="characters-display" style="font-size: 2em;"></div>
+            <label for="characters-language-select">Select Language:</label>
+            <select id="characters-language-select">
                 <option value="telugu">Telugu</option>
                 <option value="devanagari">Devanagari (Hindi, Sanskrit)</option>
                 <option value="arabic">Arabic</option>
@@ -35,9 +36,32 @@
                 <option value="greek">Greek</option>
                 <option value="cyrillic">Cyrillic</option>
             </select>
-            <button id="language-button">Next</button>
-            <button onclick="goBack()">Back</button> <!-- Back Button -->
+            <button id="characters-language-button">Next</button>
+            <button onclick="navigateTo('landing-page')">Back</button>       
+        
         </div>
+        
+
+        <!-- Words Practice Language Selection Page -->
+        <div id="words-language-selection" style="display:none;">
+            <h1>Words Practice - Select Language</h1>
+            <div id="word-display" style="font-size: 2em;"></div>
+            <label for="words-language-select">Select Language:</label>
+            <select id="words-language-select">
+                <option value="telugu">Telugu</option>
+                <option value="devanagari">Devanagari (Hindi, Sanskrit)</option>
+                <option value="arabic">Arabic</option>
+                <option value="hiragana">Hiragana</option>
+                <option value="katakana">Katakana</option>
+                <option value="hangul">Hangul</option>
+                <option value="bopomofo">Bopomofo</option>
+                <option value="greek">Greek</option>
+                <option value="cyrillic">Cyrillic</option>
+            </select>
+            <button id="words-language-button">Next</button>
+            <button onclick="navigateTo('landing-page')">Back</button>
+        </div>
+
 
         <!-- Options Page -->
         <div id="options" style="display:none;">
@@ -45,7 +69,7 @@
                 <label for="file-upload">Upload Text File:</label>
                 <input type="file" id="file-upload" accept=".txt">
             </div>
-            <div id="character-options">
+            <div id="characters-options">
                 <div id="telugu-options" style="display:none;">
                     <label><input type="checkbox" id="telugu-vowels" checked> Vowels</label>
                     <label><input type="checkbox" id="telugu-consonants" checked> Consonants</label>
@@ -102,9 +126,9 @@
         
         
         <!-- Character Practice Area -->
-        <div id="character-practice-area" style="display:none;">
+        <div id="characters-practice-area" style="display:none;">
             <h1>Character Practice</h1>
-            <div id="character-display"></div>
+            <div id="characters-display"></div>
             <input type="text" id="input-answer" placeholder="Enter Roman alphabet equivalent">
             <button id="submit-answer">Submit</button>
             <div id="feedback"></div>
