@@ -1,11 +1,4 @@
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
 // Arrays of Telugu characters and their Roman alphabet equivalents
 const teluguVowels = [
     { char: 'అ', roman: ['a'] },
@@ -667,12 +660,14 @@ document.addEventListener('DOMContentLoaded', () => {
         timeValue.textContent = timeSlider.value === "0" ? "Unlimited" : timeSlider.value;
     });
 
+    
     const startButton = document.getElementById('start-button');
-    const practiceArea = document.getElementById('practice-area');
-    const options = document.getElementById('options');
+    const characterPracticeArea = document.getElementById('character-practice-area');
+    const characterOptions = document.getElementById('character-options');
     const timeLimitInput = document.getElementById('time-limit');
     const languageSelect = document.getElementById('language-select');
     const languageButton = document.getElementById('language-button');
+    const backButton = document.getElementById('back-button');
 
     const teluguOptions = document.getElementById('telugu-options');
     const devanagariOptions = document.getElementById('devanagari-options')
@@ -728,6 +723,9 @@ document.addEventListener('DOMContentLoaded', () => {
         bopomofoOptions.style.display = 'none';
         greekOptions.style.display = 'none';
         cyrillicOptions.style.display = 'none';
+        document.getElementById('language-selection').style.display = 'none';
+        document.getElementById('extra-buttons').style.display = 'none'; // Add this line
+        characterOptions.style.display = 'block';
 
         if (selectedLanguage === 'telugu') {
             teluguOptions.style.display = 'block';
@@ -751,7 +749,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
 
         document.getElementById('language-selection').style.display = 'none';
-        options.style.display = 'block';
+        characterOptions.style.display = 'block';
+        backButton.style.display = 'block'; // Add this line
     });
 
     function displayCharacter() {
@@ -945,12 +944,13 @@ document.addEventListener('DOMContentLoaded', () => {
             timerDisplay.textContent = `Time Left: ${timeLeft}`;
         }
         shuffleArray(characters);
-        options.style.display = 'none';
-        practiceArea.style.display = 'block';
+        characterOptions.style.display = 'none';
+        characterPracticeArea.style.display = 'block';
+        backButton.style.display = 'none'; // Add this line
         displayCharacter();
     });
     
-
+    backButton.addEventListener('click', resetToLanguageSelection);
     submitAnswer.addEventListener('click', checkAnswer);
     inputAnswer.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
@@ -958,6 +958,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Add this function if you haven't already
+function resetToLanguageSelection() {
+    document.getElementById('language-selection').style.display = 'block';
+    document.getElementById('extra-buttons').style.display = 'block';
+    characterOptions.style.display = 'none';
+    characterPracticeArea.style.display = 'none';
+    // Reset other necessary states
+    correctScore = 0;
+    incorrectScore = 0;
+    correctScoreDisplay.textContent = 'Correct: 0';
+    incorrectScoreDisplay.textContent = 'Incorrect: 0';
+    clearInterval(timer);
+    timerStarted = false;
+}
+
+
 function generateHangulCombinations(consonants, vowels) {
     const combinations = [];
     consonants.forEach(consonant => {
@@ -970,6 +987,13 @@ function generateHangulCombinations(consonants, vowels) {
     return combinations;
 }
 
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 function createHangulSyllable(consonant, vowel) {
     const initialConsonantCode = consonant.charCodeAt(0) - 0x1100;

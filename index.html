@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Practice App</title>
+    <title>Polyglossia</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Language Practice</h1>
+        <h1>Polyglossia</h1>
+        <h3>A Language Practice App</h3>
+
+        <!-- New Buttons for About Me and Donate Pages -->
+        <div id="extra-buttons">
+            <button id="about-me-button">About Me</button>
+            <button id="donate-button">Donate</button>
+        </div>
+
         <div id="language-selection">
             <label for="language-select">Select Language:</label>
             <select id="language-select">
@@ -24,7 +32,8 @@
             </select>
             <button id="language-button">Next</button>
         </div>
-        <div id="options" style="display:none;">
+        <div id="character-options" style="display:none;">
+            <button id="back-button">Back to Language Selection</button>
             <div id="telugu-options" style="display:none;">
                 <label><input type="checkbox" id="telugu-vowels" checked> Vowels</label>
                 <label><input type="checkbox" id="telugu-consonants" checked> Consonants</label>
@@ -75,7 +84,7 @@
             <span id="time-value">0 = Unlimited</span>            <br>
             <button id="start-button">Start Practice</button>
         </div>
-        <div id="practice-area" style="display:none;">
+        <div id="character-practice-area" style="display:none;">
             <div id="character-display"></div>
             <input type="text" id="input-answer" placeholder="Enter Roman alphabet equivalent">
             <button id="submit-answer">Submit</button>
