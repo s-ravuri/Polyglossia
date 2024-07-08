@@ -644,6 +644,7 @@ let timer;
 let timerStarted = false;
 let selectedLanguage = 'telugu';
 let previousCharacter = null; // Add this line at the beginning of the script to keep track of the previous character// Function to shuffle the characters array
+let navigationStack = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     const characterDisplay = document.getElementById('character-display');
@@ -655,19 +656,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerDisplay = document.getElementById('timer');
     const timeSlider = document.getElementById('time-slider');
     const timeValue = document.getElementById('time-value');
-
     timeSlider.addEventListener('input', () => {
         timeValue.textContent = timeSlider.value === "0" ? "Unlimited" : timeSlider.value;
-    });
-
-    
+    });    
     const startButton = document.getElementById('start-button');
+    const backButton = document.getElementById('back-button');
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            console.log('Back button clicked');
+            navigateBack();
+        });
+    } else {
+        console.error('Back button not found in the DOM');
+    }
     const characterPracticeArea = document.getElementById('character-practice-area');
+    const languageSelectionScreen = document.getElementById('language-selection');
+    const extraButtons = document.getElementById('extra-buttons');
     const characterOptions = document.getElementById('character-options');
     const timeLimitInput = document.getElementById('time-limit');
     const languageSelect = document.getElementById('language-select');
     const languageButton = document.getElementById('language-button');
-    const backButton = document.getElementById('back-button');
 
     const teluguOptions = document.getElementById('telugu-options');
     const devanagariOptions = document.getElementById('devanagari-options')
@@ -712,51 +720,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cyrillicLowercaseCheckbox = document.getElementById('cyrillic-lowercase');
 
 
-    languageButton.addEventListener('click', () => {
-        selectedLanguage = languageSelect.value;
-        teluguOptions.style.display = 'none';
-        devanagariOptions.style.display = 'none';
-        arabicOptions.style.display = 'none';
-        hiraganaOptions.style.display = 'none';
-        katakanaOptions.style.display = 'none';
-        hangulOptions.style.display = 'none';
-        bopomofoOptions.style.display = 'none';
-        greekOptions.style.display = 'none';
-        cyrillicOptions.style.display = 'none';
-        document.getElementById('language-selection').style.display = 'none';
-        document.getElementById('extra-buttons').style.display = 'none'; // Add this line
-        characterOptions.style.display = 'block';
-
-        if (selectedLanguage === 'telugu') {
-            teluguOptions.style.display = 'block';
-        } else if (selectedLanguage === 'devanagari') {
-            devanagariOptions.style.display = 'block';
-        } else if (selectedLanguage === 'arabic') {
-            arabicOptions.style.display = 'block';
-        } else if (selectedLanguage === 'hiragana') {
-            hiraganaOptions.style.display = 'block';
-        } else if (selectedLanguage === 'katakana') {
-            katakanaOptions.style.display = 'block';
-        } else if (selectedLanguage === 'hangul') {
-            hangulOptions.style.display = 'block';
-        } else if (selectedLanguage === 'bopomofo') {
-            bopomofoOptions.style.display = 'block';
-        } else if (selectedLanguage === 'greek') {
-            greekOptions.style.display = 'block';
-        } else if (selectedLanguage === 'cyrillic') {
-            cyrillicOptions.style.display = 'block';
-        }
-        
-
-        document.getElementById('language-selection').style.display = 'none';
-        characterOptions.style.display = 'block';
-        backButton.style.display = 'block'; // Add this line
-    });
+    
 
     function displayCharacter() {
         characterDisplay.textContent = characters[currentCharacterIndex].char;
     }
-
     function updateScore(correct) {
         if (correct) {
             correctScore++;
@@ -766,7 +734,6 @@ document.addEventListener('DOMContentLoaded', () => {
         correctScoreDisplay.textContent = `Correct: ${correctScore}`;
         incorrectScoreDisplay.textContent = `Incorrect: ${incorrectScore}`;
     }
-
     function checkAnswer() {
         if (!timerStarted) {
             startTimer();
@@ -815,7 +782,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
         displayCharacter();
     }
-
     function startTimer() {
         timer = setInterval(() => {
             timeLeft--;
@@ -826,8 +792,140 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 1000);
     }
+    function updateBackButtonVisibility() {
+        console.log('Navigation stack:', navigationStack);
+        backButton.style.display = navigationStack.length > 1 ? 'inline-block' : 'none';
+    }
+    function navigateBack() {
+        console.log('Navigating back. Current stack:', navigationStack);
+        if (navigationStack.length > 1) {
+            let currentPage = navigationStack.pop();
+            let previousPage = navigationStack[navigationStack.length - 1];
+            console.log('Current page:', currentPage, 'Previous page:', previousPage);
+            
+            if (currentPage === 'practice') {
+                resetPracticeArea(); // Reset state when leaving practice area
+            }
 
+            switch (previousPage) {
+                case 'initial':
+                    showLanguageSelection();
+                    break;
+                case 'character-options':
+                    showCharacterOptions();
+                    break;
+                case 'practice':
+                    showPracticeArea();
+                    break;
+            }
+        } else {
+            console.log('Cannot go back, at initial page');
+        }
+    }
+    function showLanguageSelection() {
+        console.log('Showing language selection');
+        languageSelectionScreen.style.display = 'block';        
+        extraButtons.style.display = 'block';
+        characterOptions.style.display = 'none';
+        characterPracticeArea.style.display = 'none';
+        backButton.style.display = 'none';  // Hide back button on initial page
+    }
+    function showCharacterOptions() {
+        console.log('Showing character options');
+        languageSelectionScreen.style.display = 'none';        
+        extraButtons.style.display = 'none';
+        characterOptions.style.display = 'block';
+        characterPracticeArea.style.display = 'none';
+        backButton.style.display = 'inline-block';
+    }
+    function showPracticeArea() {
+        console.log('Showing practice area');
+        languageSelectionScreen.style.display = 'none';
+        extraButtons.style.display = 'none';
+        characterOptions.style.display = 'none';
+        characterPracticeArea.style.display = 'block';
+        backButton.style.display = 'inline-block'; 
+    }
+    function resetToLanguageSelection() {
+        document.getElementById('language-selection').style.display = 'block';
+        document.getElementById('extra-buttons').style.display = 'block';
+        characterOptions.style.display = 'none';
+        characterPracticeArea.style.display = 'none';
+        // Reset other necessary states
+        correctScore = 0;
+        incorrectScore = 0;
+        correctScoreDisplay.textContent = 'Correct: 0';
+        incorrectScoreDisplay.textContent = 'Incorrect: 0';
+        clearInterval(timer);
+        timerStarted = false;
+        navigationStack = ['initial'];
+        updateBackButtonVisibility();
+    }
+    function resetPracticeArea() {
+        characters = [];
+        currentCharacterIndex = 0;
+        correctScore = 0;
+        incorrectScore = 0;
+        timeLeft = 0;
+        clearInterval(timer);
+        timerStarted = false;
+        correctScoreDisplay.textContent = 'Correct: 0';
+        incorrectScoreDisplay.textContent = 'Incorrect: 0';
+        feedback.textContent = '';
+        feedback.className = '';
+    }
+
+    backButton.addEventListener('click', navigateBack);
+    languageButton.addEventListener('click', () => {
+        navigationStack.push('character-options');
+        console.log('Pushed character-options, stack:', navigationStack);
+        selectedLanguage = languageSelect.value;
+        showCharacterOptions();
+        updateBackButtonVisibility();  
+        teluguOptions.style.display = 'none';
+        devanagariOptions.style.display = 'none';
+        arabicOptions.style.display = 'none';
+        hiraganaOptions.style.display = 'none';
+        katakanaOptions.style.display = 'none';
+        hangulOptions.style.display = 'none';
+        bopomofoOptions.style.display = 'none';
+        greekOptions.style.display = 'none';
+        cyrillicOptions.style.display = 'none';
+        document.getElementById('language-selection').style.display = 'none';
+        document.getElementById('extra-buttons').style.display = 'none'; 
+        characterOptions.style.display = 'block';
+
+        if (selectedLanguage === 'telugu') {
+            teluguOptions.style.display = 'block';
+        } else if (selectedLanguage === 'devanagari') {
+            devanagariOptions.style.display = 'block';
+        } else if (selectedLanguage === 'arabic') {
+            arabicOptions.style.display = 'block';
+        } else if (selectedLanguage === 'hiragana') {
+            hiraganaOptions.style.display = 'block';
+        } else if (selectedLanguage === 'katakana') {
+            katakanaOptions.style.display = 'block';
+        } else if (selectedLanguage === 'hangul') {
+            hangulOptions.style.display = 'block';
+        } else if (selectedLanguage === 'bopomofo') {
+            bopomofoOptions.style.display = 'block';
+        } else if (selectedLanguage === 'greek') {
+            greekOptions.style.display = 'block';
+        } else if (selectedLanguage === 'cyrillic') {
+            cyrillicOptions.style.display = 'block';
+        }
+        
+
+        document.getElementById('language-selection').style.display = 'none';
+        characterOptions.style.display = 'block';
+        backButton.style.display = 'block'; // Add this line
+    });
     startButton.addEventListener('click', () => {
+        navigationStack.push('practice');
+        resetPracticeArea();
+        selectedLanguage = languageSelect.value;
+        showPracticeArea();
+        updateBackButtonVisibility();
         characters = [];
         let selectedConsonants = [];
     
@@ -946,33 +1044,23 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffleArray(characters);
         characterOptions.style.display = 'none';
         characterPracticeArea.style.display = 'block';
-        backButton.style.display = 'none'; // Add this line
+        updateBackButtonVisibility(); 
         displayCharacter();
     });
-    
-    backButton.addEventListener('click', resetToLanguageSelection);
     submitAnswer.addEventListener('click', checkAnswer);
     inputAnswer.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             checkAnswer();
         }
     });
+
+    navigationStack = ['initial'];
+    updateBackButtonVisibility();
 });
 
-// Add this function if you haven't already
-function resetToLanguageSelection() {
-    document.getElementById('language-selection').style.display = 'block';
-    document.getElementById('extra-buttons').style.display = 'block';
-    characterOptions.style.display = 'none';
-    characterPracticeArea.style.display = 'none';
-    // Reset other necessary states
-    correctScore = 0;
-    incorrectScore = 0;
-    correctScoreDisplay.textContent = 'Correct: 0';
-    incorrectScoreDisplay.textContent = 'Incorrect: 0';
-    clearInterval(timer);
-    timerStarted = false;
-}
+
+
+
 
 
 function generateHangulCombinations(consonants, vowels) {

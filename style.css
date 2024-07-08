@@ -10,6 +10,7 @@ body {
 }
 
 .container {
+    position: relative;
     text-align: center;
     background: white;
     padding: 20px;
@@ -97,15 +98,29 @@ label {
     color: #333;
     animation: popIn 0.5s ease;
 }
+
 #back-button {
-    margin-top: 20px;
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 8px 15px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #74ebd5;  /* Match the other buttons */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #back-button:hover {
-    background-color: #e0e0e0;
+    background-color: #ACB6E5;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 @keyframes popIn {
