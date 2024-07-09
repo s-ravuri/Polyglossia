@@ -566,10 +566,23 @@ let incorrectScore = 0;
 let timeLeft;
 let timer;
 let timerStarted = false;
-let selectedLanguage = 'telugu';
+let selectedLanguage = 'hiragana';
 let previousCharacter = null; // Add this line at the beginning of the script to keep track of the previous character// Function to shuffle the characters array
 let navigationStack = [];
 const elements = {};
+
+const correctSounds = document.querySelectorAll('#correct-sound-container audio');
+const incorrectSounds = document.querySelectorAll('#incorrect-sound-container audio');
+const muteButton = document.getElementById('mute-button');
+let currentCorrectSound = 0;
+let currentIncorrectSound = 0;
+let isMuted = false;
+
+muteButton.addEventListener('click', function() {
+    isMuted = !isMuted;
+    updateMuteButton();
+    setAudioMuted(isMuted);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize DOM elements
@@ -728,9 +741,7 @@ function checkAnswer() {
     updateCharacterScore(characters[currentCharacterIndex].char, correct);
     showFeedback(correct);
 
-    // Play sound effect
-    const soundElement = document.getElementById(correct ? 'correct-sound' : 'incorrect-sound');
-    soundElement.play();
+    playSound(correct); //play sound
 
     elements.inputAnswer.value = '';
     currentCharacterIndex = (currentCharacterIndex + 1) % characters.length;
@@ -746,6 +757,27 @@ function startTimer() {
             alert(`Time's up! Your score is ${correctScore}.`);
         }
     }, 1000);
+}
+function playSound(correct) {
+    if (isMuted) return;
+    const sounds = correct ? correctSounds : incorrectSounds;
+    const currentIndex = correct ? currentCorrectSound : currentIncorrectSound;
+
+    sounds[currentIndex].play();
+
+    // Move to the next sound, loop back to 0 if at the end
+    if (correct) {
+        currentCorrectSound = (currentCorrectSound + 1) % correctSounds.length;
+    } else {
+        currentIncorrectSound = (currentIncorrectSound + 1) % incorrectSounds.length;
+    }
+}
+function updateMuteButton() {
+    muteButton.textContent = isMuted ? '🔇' : '🔊';
+}
+function setAudioMuted(muted) {
+    correctSounds.forEach(sound => sound.muted = muted);
+    incorrectSounds.forEach(sound => sound.muted = muted);
 }
 function updateScore(correct) {
     if (correct) {

@@ -1,4 +1,9 @@
 /* General Styles */
+:root {
+    --button-color: #74ebd5;
+    --button-hover-color: #ACB6E5;
+}
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -13,118 +18,19 @@ body {
     position: relative;
     text-align: center;
     background: white;
-    padding: 20px;
+    padding: 40px 20px 20px;
     border-radius: 16px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     max-width: 400px;
     width: 100%;
     animation: fadeIn 1s ease-in-out;
 }
-/* Mobile devices */
-@media screen and (max-width: 480px) {
-    .container {
-        width: 95%;
-        padding: 10px;
-    }
-    
-    h1 {
-        font-size: 1.5em;
-    }
-    
-    h3 {
-        font-size: 1em;
-    }
-    
-    #character-display {
-        font-size: 36px;
-    }
-    
-    button, input[type="text"], select {
-        font-size: 14px;
-        padding: 8px;
-    }
-}
-
-/* Tablets */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .container {
-        width: 80%;
-    }
-}
-/* Dark Mode */
-#dark-mode-toggle {
-    right: 10px;
-}
-
-body.dark-mode {
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: #ecf0f1;
-}
-
-body.dark-mode .container {
-    background: #2c3e50;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-body.dark-mode h1,
-body.dark-mode h3 {
-    color: #ecf0f1;
-}
-body.dark-mode #correct-score,
-body.dark-mode #incorrect-score,
-body.dark-mode #timer {
-    background: #34495e;
-    color: #ecf0f1;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-body.dark-mode #feedback.correct {
-    color: #2ecc71;
-}
-
-body.dark-mode #feedback.incorrect {
-    color: #e74c3c;
-}
-body.dark-mode #character-display {
-    color: #ecf0f1;
-}
-
-body.dark-mode button {
-    background-color: #2980b9;
-}
-
-body.dark-mode button:hover {
-    background-color: #3498db;
-}
-
-body.dark-mode input[type="text"], body.dark-mode select {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    border-color: #7f8c8d;
-}
-body.dark-mode .checkbox-wrapper {
-    background-color: #34495e;
-}
-body.dark-mode .checkbox-wrapper:hover {
-    background-color: #2c3e50;
-}
-
-body.dark-mode .checkbox-wrapper label {
-    color: #ecf0f1;
-}
-
-body.dark-mode .checkbox-wrapper input[type="checkbox"] + label:before {
-    background-color: #2c3e50;
-    border-color: #3498db;
-}
-
-body.dark-mode .checkbox-wrapper input[type="checkbox"]:checked + label:before {
-    background-color: #3498db;
-    color: #ecf0f1;
-}
 
 /* Typography */
 h1 {
     color: #333;
     font-size: 2em;
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
@@ -139,25 +45,34 @@ button {
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    background-color: #74ebd5;
+    background-color: var(--button-color);
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #ACB6E5;
+    background-color: var(--button-hover-color);
 }
 
 .navigation-button {
     position: absolute;
-    top: 10px;
-    padding: 8px 15px;
-    font-size: 15px;
+    top: 15px;
+    padding: 8px 12px;
+    font-size: 18px;
 }
 
 #back-button {
-    left: 10px;
+    left: 15px;
+}
+
+#mute-button {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#dark-mode-toggle {
+    right: 15px;
 }
 
 .extra-button {
@@ -230,42 +145,13 @@ input[type="range"] {
     to { transform: scale(1); opacity: 1; }
 }
 
-/* Media Queries */
-@media (max-width: 600px) {
-    .container {
-        width: 90%;
-        padding: 15px;
-    }
-
-    #character-display {
-        font-size: 36px;
-    }
-
-    button {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-
-    input[type="text"], select {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    #feedback, #correct-score, #incorrect-score, #timer {
-        font-size: 14px;
-    }
-}
-
+/* Checkbox Styles */
 #options-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
-}
-
-#options-container label {
-    margin-left: 5px;
 }
 
 .checkbox-wrapper {
@@ -280,7 +166,6 @@ input[type="range"] {
 .checkbox-wrapper:hover {
     background-color: #e0e0e0;
 }
-
 
 .checkbox-wrapper input[type="checkbox"] {
     display: none;
@@ -311,4 +196,119 @@ input[type="range"] {
 .checkbox-wrapper input[type="checkbox"]:checked + label:before {
     background-color: #74ebd5;
     color: #fff;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+body.dark-mode .container {
+    background: #2c3e50;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode h1,
+body.dark-mode h3 {
+    color: #ecf0f1;
+}
+
+body.dark-mode #correct-score,
+body.dark-mode #incorrect-score,
+body.dark-mode #timer {
+    background: #34495e;
+    color: #ecf0f1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode #feedback.correct {
+    color: #2ecc71;
+}
+
+body.dark-mode #feedback.incorrect {
+    color: #e74c3c;
+}
+
+body.dark-mode #character-display {
+    color: #ecf0f1;
+}
+
+body.dark-mode {
+    --button-color: #2980b9;
+    --button-hover-color: #3498db;
+}
+
+body.dark-mode button,
+body.dark-mode .navigation-button {
+    background-color: var(--button-color);
+}
+
+body.dark-mode button:hover,
+body.dark-mode .navigation-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+body.dark-mode input[type="text"], 
+body.dark-mode select {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    border-color: #7f8c8d;
+}
+
+body.dark-mode .checkbox-wrapper {
+    background-color: #34495e;
+}
+
+body.dark-mode .checkbox-wrapper:hover {
+    background-color: #2c3e50;
+}
+
+body.dark-mode .checkbox-wrapper label {
+    color: #ecf0f1;
+}
+
+body.dark-mode .checkbox-wrapper input[type="checkbox"] + label:before {
+    background-color: #2c3e50;
+    border-color: #3498db;
+}
+
+body.dark-mode .checkbox-wrapper input[type="checkbox"]:checked + label:before {
+    background-color: #3498db;
+    color: #ecf0f1;
+}
+
+/* Media Queries */
+@media screen and (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 30px 15px 15px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    h3 {
+        font-size: 1em;
+    }
+    
+    #character-display {
+        font-size: 36px;
+    }
+    
+    button, input[type="text"], select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .navigation-button {
+        top: 10px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: 80%;
+    }
 }
