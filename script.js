@@ -559,6 +559,7 @@ const CHARACTERS = {
 
 let characters = [];
 let selectedCharacters = [];
+let characterScores = {};
 let currentCharacterIndex = 0;
 let correctScore = 0;
 let incorrectScore = 0;
@@ -568,8 +569,6 @@ let timerStarted = false;
 let selectedLanguage = 'telugu';
 let previousCharacter = null; // Add this line at the beginning of the script to keep track of the previous character// Function to shuffle the characters array
 let navigationStack = [];
-
-// DOM Elements
 const elements = {};
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -589,7 +588,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize app
     updateBackButtonVisibility();
 });
-
+document.getElementById('dark-mode-toggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+});
+// Check for saved dark mode preference
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+}
 function initializeElements() {
     const ids = [
         'character-display', 'input-answer', 'submit-answer', 'feedback',
@@ -604,15 +610,12 @@ function initializeElements() {
         }
     });
 }
-
 function toCamelCase(str) {
     return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
-
 function updateTimeValue() {
     elements.timeValue.textContent = elements.timeSlider.value === "0" ? "Unlimited" : elements.timeSlider.value;
 }
-
 function navigateBack() {
     console.log('Navigating back. Current stack:', navigationStack);
     if (navigationStack.length > 1) {
@@ -643,7 +646,6 @@ function showPage(page) {
     }
     updateBackButtonVisibility();
 }
-
 function updateBackButtonVisibility() {
     console.log('Updating back button visibility. Navigation stack:', navigationStack);
     if (navigationStack.length > 1) {
@@ -654,14 +656,12 @@ function updateBackButtonVisibility() {
         elements.backButton.style.display = 'none';
     }
 }
-
 function selectLanguage() {
     navigationStack = ['initial', 'character-options'];
     selectedLanguage = elements.languageSelect.value;
     showCharacterOptions();
     updateBackButtonVisibility();
 }
-
 function startPractice() {
     console.log('Starting practice...');
     if (generateCharacters()) {
@@ -676,7 +676,6 @@ function startPractice() {
         console.log('Failed to generate characters');
     }
 }
-
 function generateCharacters() {
     selectedCharacters = [];
     const options = CHARACTERS[selectedLanguage];
@@ -704,8 +703,6 @@ function generateCharacters() {
     shuffleArray(characters);
     return true;
 }
-
-
 function setTimer() {
     let time = parseInt(elements.timeSlider.value, 10);
     if (time === 0) {
@@ -716,17 +713,10 @@ function setTimer() {
         elements.timer.textContent = `Time Left: ${timeLeft}`;
     }
 }
-
 function displayCharacter() {
-    console.log('Displaying character. Current index:', currentCharacterIndex, 'Total characters:', characters.length);
-    if (characters.length > 0 && characters[currentCharacterIndex]) {
-        elements.characterDisplay.textContent = characters[currentCharacterIndex].char;
-    } else {
-        console.error('No characters to display. Characters array:', characters);
-        elements.characterDisplay.textContent = 'Error: No characters to display';
-    }
+    currentCharacterIndex = selectNextCharacter();
+    elements.characterDisplay.textContent = characters[currentCharacterIndex].char;
 }
-
 function checkAnswer() {
     if (!timerStarted) startTimer();
     
@@ -735,13 +725,17 @@ function checkAnswer() {
 
     const correct = correctRomanizations.includes(userAnswer);
     updateScore(correct);
+    updateCharacterScore(characters[currentCharacterIndex].char, correct);
     showFeedback(correct);
+
+    // Play sound effect
+    const soundElement = document.getElementById(correct ? 'correct-sound' : 'incorrect-sound');
+    soundElement.play();
 
     elements.inputAnswer.value = '';
     currentCharacterIndex = (currentCharacterIndex + 1) % characters.length;
     displayCharacter();
 }
-
 function startTimer() {
     timerStarted = true;
     timer = setInterval(() => {
@@ -753,7 +747,6 @@ function startTimer() {
         }
     }, 1000);
 }
-
 function updateScore(correct) {
     if (correct) {
         correctScore++;
@@ -763,7 +756,6 @@ function updateScore(correct) {
         elements.incorrectScore.textContent = `Incorrect: ${incorrectScore}`;
     }
 }
-
 function showFeedback(correct) {
     if (correct) {
         elements.feedback.textContent = 'Correct!';
@@ -774,7 +766,6 @@ function showFeedback(correct) {
         elements.feedback.className = 'incorrect';
     }
 }
-
 function resetPracticeArea() {
     currentCharacterIndex = 0;
     correctScore = 0;
@@ -787,7 +778,6 @@ function resetPracticeArea() {
     elements.feedback.textContent = '';
     elements.feedback.className = '';
 }
-
 function showLanguageSelection() {
     elements.languageSelection.style.display = 'block';
     elements.extraButtons.style.display = 'block';
@@ -830,15 +820,12 @@ function showCharacterOptions() {
     console.log('Options created for:', selectedLanguage); // For debugging
     updateBackButtonVisibility();
 }
-
 function showPracticeArea() {
     elements.languageSelection.style.display = 'none';
     elements.extraButtons.style.display = 'none';
     elements.characterOptions.style.display = 'none';
     elements.characterPracticeArea.style.display = 'block';
 }
-
-
 function generateHangulCombinations(consonants, vowels) {
     const combinations = [];
     consonants.forEach(consonant => {
@@ -850,15 +837,12 @@ function generateHangulCombinations(consonants, vowels) {
     });
     return combinations;
 }
-
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-
 function createHangulSyllable(consonant, vowel) {
     const initialConsonantCode = consonant.charCodeAt(0) - 0x1100;
     const medialVowelCode = vowel.charCodeAt(0) - 0x1161;
@@ -874,7 +858,6 @@ function combineRoman(consonantRoman, vowelRoman) {
     });
     return combined;
 }
-
 function generateIndicCombinations(consonants, vowels) {
     const combinations = [];
     consonants.forEach(consonant => {
@@ -888,6 +871,32 @@ function generateIndicCombinations(consonants, vowels) {
         });
     });
     return combinations;
+}
+function updateCharacterScore(character, correct) {
+    if (!characterScores[character]) {
+        characterScores[character] = { correct: 0, total: 0 };
+    }
+    characterScores[character].total++;
+    if (correct) {
+        characterScores[character].correct++;
+    }
+}
+function getCharacterDifficulty(character) {
+    if (!characterScores[character]) return 1;
+    return 1 - (characterScores[character].correct / characterScores[character].total);
+}
+function selectNextCharacter() {
+    let totalWeight = characters.reduce((sum, char) => sum + getCharacterDifficulty(char.char), 0);
+    let randomWeight = Math.random() * totalWeight;
+    let weightSum = 0;
+    
+    for (let i = 0; i < characters.length; i++) {
+        weightSum += getCharacterDifficulty(characters[i].char);
+        if (weightSum > randomWeight) {
+            return i;
+        }
+    }
+    return characters.length - 1;
 }
 
 
